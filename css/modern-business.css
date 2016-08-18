@@ -63,7 +63,7 @@ body {
 }
 
 .navbar-fixed-top, footer.navbar {
-    height: 80px;
+    /*height: 80px;*/
 }
 
 .navbar-inverse {
@@ -105,7 +105,7 @@ footer {
 
 .footer-image {
     max-height: 20px;
-    margin-top: 27px;
+    margin-top: 50%;
     margin-left: 200%;
 }
 
