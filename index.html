@@ -8,71 +8,197 @@
     <meta name="author" content="Julian Klug">
     <title>DataBridge</title>
 
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/modern-business.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="css/main.css" rel="stylesheet">
+    <!-- Add Mozilla compatibility -->
+    <script type="text/javascript">
+      if (navigator.userAgent.indexOf("Firefox") != -1) {
+        document.write('<'+'link rel="stylesheet" href="css/mozillaStyles.css" />')
+      }
+    </script>
+    <script type="text/javascript" src="libraries/paper-full.js"></script>
+    <script type="text/paperscript" canvas="canvas">
+
+    var w = window.innerWidth;
+    var h = window.innerHeight;
+    var ratio = window.innerHeight*window.innerWidth;
+    var canvasWidth = w;
+    var canvasHeigth = h;
+
+    var dataPoints = [];
+    var radius = h*0.004; //ratio*0.000002; //w * 0.002;
+    var origin = new Path.Circle(new Point(canvasWidth*0.7, canvasHeigth*0.45), 1.2*radius);
+    origin.fillColor = 'black';
+    origin.opacity = 0.7;
+
+    spawn(canvasWidth*0.33, canvasHeigth*0.45, 50);
+
+    var connection1 = new Path();
+    connection1.strokeColor = 'black';
+    connection1.strokeWidth = 0.4;
+    // connection1.smooth();
+    connection1.dashArray = [10, 12];
+    initialConnection();
+
+    function initialConnection() {
+      connection1.removeSegments();
+      connection1.add(dataPoints[0].position);
+      connection1.add(origin.position);
+      connection1.add(new Point((dataPoints[0].position.x + origin.position.x)/2, (dataPoints[0].position.y + origin.position.y)/2 - 10));
+      connection1.add(dataPoints[0].position);
+      connection1.add(new Point((dataPoints[0].position.x + origin.position.x)/2, (dataPoints[0].position.y + origin.position.y)/2 + 10));
+      connection1.add(origin.position);
+      connection1.add(new Point((dataPoints[0].position.x + origin.position.x)/2, (dataPoints[0].position.y + origin.position.y)/2 - 5));
+      connection1.add(dataPoints[0].position);
+      connection1.add(new Point((dataPoints[0].position.x + origin.position.x)/2, (dataPoints[0].position.y + origin.position.y)/2 + 1));
+      connection1.add(origin.position);
+    }
+
+
+    var connections = new Path();
+    connections.strokeColor = 'black';
+    connections.strokeWidth = 0.01;
+    for (var i = 0; i < dataPoints.length; i++) {
+      for (var j = 0; j < dataPoints.length; j++) {
+        connections.add(dataPoints[i].position);
+        connections.add(dataPoints[j].position);
+      }
+    }
+
+    function spawn (centerX, centerY, number) {
+      for (var i = 0; i < number; i++) {
+        var sparsityX = canvasWidth * 0.05;
+        var sparsityY = canvasHeigth * 0.05;
+        centerX += Math.random()*(sparsityX + sparsityX) - sparsityX;
+        centerY += Math.random()*(sparsityY + sparsityY) - sparsityY;
+        var center = new Point(centerX, centerY);
+        dataPoints.push(new Path.Circle(center, radius));
+        dataPoints[i].fillColor = 'black';
+        dataPoints[i].opacity = 0.5;
+      }
+    }
+
+    function onFrame(event) {
+	// Your animation code goes in here
+  maxJitter = 0.7;//0.2;
+  minJitter = -0.7; //-0.2;
+  connections.removeSegments();
+  for (var i = 0; i < dataPoints.length; i++){
+    dataPoints[i].position = new Point(dataPoints[i].position.x, dataPoints[i].position.y + Math.random()*(maxJitter - minJitter) + minJitter);
+    for (var j = 0; j < dataPoints.length; j++) {
+      connections.add(dataPoints[i].position);
+      connections.add(dataPoints[j].position);
+    }
+  }
+  initialConnection();
+
+}
+
+function onMouseMove(event) {
+	var mousePos = event.point;
+  var precision = 7.5;
+  for (var i = 0; i < dataPoints.length; i++) {
+    if (Math.round(mousePos.x) > Math.round(dataPoints[i].position.x) - precision && Math.round(mousePos.x) < Math.round(dataPoints[i].position.x) + precision
+    && Math.round(mousePos.y) > Math.round(dataPoints[i].position.y) - precision && Math.round(mousePos.y) < Math.round(dataPoints[i].position.y) + precision) {
+      dataPoints[i].opacity = 1;
+    } else {
+      dataPoints[i].opacity = 0.5;
+    }
+  }
+
+}
+
+function onResize(event) {
+
+}
+
+    </script>
 </head>
 
 <body>
 
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container">
+
             <div class="navbar-header">
                 <a class="navbar-brand" href="index.html">
                     <img src="images/Logo2.png" title="DataBridge" style="height: 140px;">
                 </a>
             </div>
-        </div>
-    </nav>
 
     <div class="main">
-        <header class = "header_flex">
-
-            <img src="images/Bridge/bridge-extract.png" class="header-image">
-
-        </header>
-
-            <h1 class="page-header">
-             <b> The DataBridge. </b>
-             <br/> <font size="5"> <i> The web, brought close to you. </i></font></h1>
+      <div class="header-wrapper">
 
 
+            <div class="page-header">
+              <h1>
+             <b> DataBridge. </b></h1>
+             <font size="5"> <i> The web, brought close to you. </i></font></div>
+    </div>
+
+    <div class='sub-content'>
+      <div class="banner">
+        <div></div>
+        <div class='subline'>
+          More than just a serverless CDN.
+        </div>
+        <div></div>
+      </div>
 
 
-             <div class="sub-content">               
+               <div class="slide-deck">
 
-                 <div class="slide">
-                     <i> Eco-friendly. </i>
-                     <div class="info-txt">No need for energy-hungry server-farms</div>
-                 </div>
+                   <div class="slide">
+                     <div class="info-txt">
+                       <i class="slide-title"> Eco-friendly. </i>
+                       <div>No need for energy-hungry servers.</div>
+                       </div>
+                   </div>
 
-                 <div class="slide">
-                   <i>  Cheap. </i>
-                   <div class="info-txt">Net reduction in server costs through distributed hosting</div>
-                 </div>
+                   <div class="slide">
+                     <div class="info-txt">
+                     <i class="slide-title">  Cheap. </i>
+                     <div>Net reduction in server costs through distributed hosting. </div>
+                     </div>
+                   </div>
 
-                 <div class="slide">
-                     <i> And fast. </i>
-                     <div class="info-txt">Multiple data-sources for faster computing</div>
-                 </div>
+                   <div class="slide">
+                     <div class="info-txt">
+                       <i class="slide-title"> And fast. </i>
+                       <div>Multiple data-sources for faster computing.</div>
+                       </div>
+                   </div>
+
+               </div>
+
+               <div class="explanation">
+                 DataBridge is an affordable solution for a fast internet experience. By reducing the usage of standard CDNs, it helps cut costs and carbon-emissions.
+                 Distributed content delivery tends towards infinite scalability by integrating end-users into the DataBridge Network.
+               </div>
+
+    </div>
+
+
+
+
+
+             <div class="pusher">
 
              </div>
 
+             <div class="main-background" id='canvasContainer'>
+                    <canvas id="canvas" resize="true"></canvas>
 
+             </div>
 
  </div>
-
- <footer class="navbar navbar-inverse">
-
-    <a href="mailto:tensu.wave@gmail.com">
-    <img class ="footer-image" src="images/mail.png" title="We do read our mails.">
+<div class="footer">
+  <a class="footer-image-wrap" href="mailto:tensu.wave@gmail.com">
+    <img class="footer-image" src="images/mail.png" title="We do read our mails.">
     </a>
+</div>
 
-    </footer>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
 
 
 </body>
+
 </html>
