@@ -81,17 +81,17 @@
 
     function onFrame(event) {
 	// Your animation code goes in here
-  maxJitter = 0;//0.2;
-  minJitter = -0; //-0.2;
-  connections.removeSegments();
-  for (var i = 0; i < dataPoints.length; i++){
-    dataPoints[i].position = new Point(dataPoints[i].position.x, dataPoints[i].position.y + Math.random()*(maxJitter - minJitter) + minJitter);
-    for (var j = 0; j < dataPoints.length; j++) {
-      connections.add(dataPoints[i].position);
-      connections.add(dataPoints[j].position);
-    }
-  }
-  initialConnection();
+  // maxJitter = 0;//0.2;
+  // minJitter = -0; //-0.2;
+  // connections.removeSegments();
+  // for (var i = 0; i < dataPoints.length; i++){
+  //   dataPoints[i].position = new Point(dataPoints[i].position.x, dataPoints[i].position.y + Math.random()*(maxJitter - minJitter) + minJitter);
+  //   for (var j = 0; j < dataPoints.length; j++) {
+  //     connections.add(dataPoints[i].position);
+  //     connections.add(dataPoints[j].position);
+  //   }
+  // }
+  // initialConnection();
 
 }
 
