@@ -81,8 +81,8 @@
 
     function onFrame(event) {
 	// Your animation code goes in here
-  maxJitter = 0.7;//0.2;
-  minJitter = -0.7; //-0.2;
+  maxJitter = 0;//0.2;
+  minJitter = -0; //-0.2;
   connections.removeSegments();
   for (var i = 0; i < dataPoints.length; i++){
     dataPoints[i].position = new Point(dataPoints[i].position.x, dataPoints[i].position.y + Math.random()*(maxJitter - minJitter) + minJitter);
