@@ -38,6 +38,7 @@ html, body {
   padding-top: 9vh;
   margin-bottom: 35vh;
   font-size: 150%;
+  font-family: Oswald;
 }
 
 .page-header {
@@ -63,6 +64,7 @@ canvas[resize] {
 .sub-content {
   flex-direction: column;
   display: flex;
+  font-family: Roboto;
 }
 
 .banner {
@@ -108,7 +110,6 @@ canvas[resize] {
     color: rgb(102, 102, 102);
     text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
 
-    font-family: 'Open Sans', Arial, sans-serif;
     font-size: large;
     line-height: 36px;
     letter-spacing: -1px;
@@ -122,7 +123,6 @@ canvas[resize] {
   margin: auto;
   margin-top: 7vh;
   font-size: xx-large;
-  font-family: 'Open Sans', Arial, sans-serif;
   color: rgb(102, 102, 102);
   font-size: large;
   font-style: italic;
