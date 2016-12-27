@@ -66,15 +66,20 @@
     }
 
     function spawn (centerX, centerY, number) {
-      for (var i = 0; i < number; i++) {
+      for (var i = 0; dataPoints.length < number; i++) {
         var sparsityX = canvasWidth * 0.05;
         var sparsityY = canvasHeigth * 0.05;
         centerX += Math.random()*(sparsityX + sparsityX) - sparsityX;
         centerY += Math.random()*(sparsityY + sparsityY) - sparsityY;
-        var center = new Point(centerX, centerY);
-        dataPoints.push(new Path.Circle(center, radius));
-        dataPoints[i].fillColor = 'black';
-        dataPoints[i].opacity = 0.5;
+
+        if (centerX > 0 && centerX < canvasWidth
+        && centerY > 80 && centerY < canvasHeigth) {
+          var center = new Point(centerX, centerY);
+          dataPoints.push(new Path.Circle(center, radius));
+          dataPoints[dataPoints.length-1].fillColor = 'black';
+          dataPoints[dataPoints.length-1].opacity = 0.5;
+        }
+
       }
     }
 
