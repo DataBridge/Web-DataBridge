@@ -23,6 +23,8 @@
     var ratio = window.innerHeight*window.innerWidth;
     var canvasWidth = w;
     var canvasHeigth = h;
+    var strokeWidth = h * 0.0013;
+    console.log(strokeWidth);
 
     var dataPoints = [];
     var radius = h*0.004; //ratio*0.000002; //w * 0.002;
@@ -34,7 +36,7 @@
 
     var connection1 = new Path();
     connection1.strokeColor = 'black';
-    connection1.strokeWidth = 0.4;
+    connection1.strokeWidth = strokeWidth * 0.4;
     // connection1.smooth();
     connection1.dashArray = [10, 12];
     initialConnection();
@@ -56,7 +58,7 @@
 
     var connections = new Path();
     connections.strokeColor = 'black';
-    connections.strokeWidth = 0.01;
+    connections.strokeWidth = strokeWidth * 0.01;
     for (var i = 0; i < dataPoints.length; i++) {
       for (var j = 0; j < dataPoints.length; j++) {
         connections.add(dataPoints[i].position);
@@ -121,7 +123,7 @@ function onResize(event) {
                 <a class="navbar-brand" href="index.html">
                     <img src="images/Logo2.png" title="DataBridge" style="height: 140px;">
                 </a>
-        
+
             </div>
 
     <div class="main">
