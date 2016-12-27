@@ -20,6 +20,7 @@ html, body {
     transform: translateX(-50%);
     left: 50%;
     position: absolute;
+    max-height: 140px;
 }
 
 .main {
