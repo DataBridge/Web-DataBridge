@@ -72,20 +72,31 @@
 
     function spawn (centerX, centerY, number) {
       for (var i = 0; dataPoints.length < number; i++) {
-        var sparsityX = canvasWidth * 0.05;
-        var sparsityY = canvasHeigth * 0.05;
-        centerX += Math.random()*(sparsityX + sparsityX) - sparsityX;
-        centerY += Math.random()*(sparsityY + sparsityY) - sparsityY;
+        var sparsityX = 0.12 * canvasWidth;
+        var sparsityY = 0.12 * canvasWidth;
+        var pX = centerX + Math.random()*(sparsityX + sparsityX) - sparsityX;
+        var pY = centerY + Math.random()*(sparsityY + sparsityY) - sparsityY;
 
-        if (centerX > 0 && centerX < canvasWidth
-        && centerY > 80 && centerY < canvasHeigth) {
-          var center = new Point(centerX, centerY);
+        if (pX > 0 && pX < canvasWidth
+        && pY > 80 && pY < canvasHeigth
+        && checkDistance(pX, pY)) {
+          var center = new Point(pX, pY);
           dataPoints.push(new Path.Circle(center, radius));
           dataPoints[dataPoints.length-1].fillColor = 'black';
           dataPoints[dataPoints.length-1].opacity = 0.5;
         }
 
       }
+    }
+
+    function checkDistance (X, Y) {
+      var minimalDistance = 3*radius;
+      for (i = 0; i < dataPoints.length; i++) {
+        if (Math.sqrt(Math.pow(dataPoints[i].position.x-X, 2)+Math.pow(dataPoints[i].position.y-Y, 2)) < minimalDistance) {
+          return false;
+        }
+      }
+      return true;
     }
 
     function onFrame(event) {
