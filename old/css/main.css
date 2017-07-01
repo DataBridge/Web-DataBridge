@@ -1,0 +1,172 @@
+* {
+  margin: 0;
+}
+
+img {
+  max-height: inherit;
+}
+
+html, body {
+  height: 100%;
+}
+
+.navbar-header {
+  top: 0px;
+  height: 80px;
+  background: #2e2e31;
+}
+
+.navbar-brand {
+    transform: translateX(-50%);
+    left: 50%;
+    position: absolute;
+    max-height: 140px;
+}
+
+.main {
+  min-height: 100%;
+  margin-bottom: -80px;
+
+}
+
+.main:after {
+  content: "";
+  display: block;
+  height: 80px;
+}
+
+.header-wrapper {
+  padding-top: 9vh;
+  margin-bottom: 35vh;
+  font-size: 150%;
+  font-family: Oswald;
+}
+
+.page-header {
+  position: relative;
+  z-index: -1;
+  text-align: center;
+  background: linear-gradient(to bottom,#041727 0%,#062b3f 100%);
+}
+
+.main-background {
+  position: absolute;
+  top: 0;
+  z-index: -2;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+canvas[resize] {
+    width: 100%;
+    height: 100%;
+}
+
+.sub-content {
+  flex-direction: column;
+  display: flex;
+  font-family: Roboto;
+}
+
+.banner {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+}
+
+.banner div {
+  flex: 1;
+}
+
+.subline {
+  padding-bottom: 5vh;
+  text-align: center;
+  font-size: x-large;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0.3);
+  font-style: italic;
+}
+
+.slide-deck {
+    flex: 1;
+    display: flex;
+    flex-direction:row;
+    max-width: 80%;
+    margin: auto;
+}
+
+.slide {
+
+    flex: 1;
+
+    width: 20%;
+    padding: 2.5% 2.5%;
+
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px solid rgba(0, 0, 0, .3);
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, .1);
+
+    color: rgb(102, 102, 102);
+    text-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+
+    font-size: large;
+    line-height: 36px;
+    letter-spacing: -1px;
+
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+
+.explanation {
+  width: 80%;
+  margin: auto;
+  margin-top: 7vh;
+  font-size: xx-large;
+  color: rgb(102, 102, 102);
+  font-size: large;
+  font-style: italic;
+  text-align: justify;
+}
+
+.pusher {
+  min-height: 10vh;
+}
+
+
+.footer {
+  height: 80px;
+  background: #2e2e31;
+}
+
+.footer-image-wrap {
+  max-height: 40%;
+  margin-left: 5%;
+}
+
+.footer-image {
+  margin-top: 25px;
+}
+
+/* Responsive styles */
+
+@media (max-width: 550px) {
+   .header-wrapper {
+     font-size: 180%;
+     margin-top: 20%;
+     margin-bottom: 20vh;
+   }
+
+    .sub-content {
+        flex-direction: column;
+    }
+
+    .slide {
+        margin-left: auto;
+        margin-right: auto;
+        margin-bottom: 2.5vh;
+        width: 60%;
+    }
+
+}
