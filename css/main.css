@@ -1863,7 +1863,7 @@ canvas {
     image-rendering: pixelated;
     -ms-interpolation-mode: nearest-neighbor
 }
-a.ipfs-logo {
+a.databridge-logo {
     width: 132px;
     height: 50px;
     display: block;
@@ -2035,7 +2035,9 @@ body.subdoc header canvas {
 .footer-primary {
     padding: 50px 0 20px;
     background: #083b54 no-repeat center center;
-    background-image: url("../images/footer-stars.png"), url("../images/footer-bg.png");
+    /*background-image: url("../images/footer-bg.png");*/
+    background: -webkit-gradient(linear, left top, left bottom, from(#041727), to(#062b3f));
+    background: linear-gradient(to bottom, #041727 0%, #062b3f 100%);
     background-size: 1700px 400px, cover;
     color: #fff;
     margin-top: 60px;
