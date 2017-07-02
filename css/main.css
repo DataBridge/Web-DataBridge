@@ -245,7 +245,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+h7 {
     margin-top: 0;
     margin-bottom: 30px;
     line-height: 1.25;
@@ -257,6 +258,7 @@ h3,
 h4,
 h5,
 h6,
+h7,
 strong {
     color: #000
 }
@@ -265,7 +267,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+h7 {
     font-weight: 300
 }
 h6 {
@@ -333,6 +336,9 @@ blockquote footer:before {
     h6 {
         font-size: 14px
     }
+    h7 {
+      font-size: 12px
+    }
     .blockquote-large {
         font-size: 32px
     }
@@ -355,6 +361,9 @@ blockquote footer:before {
     }
     h6 {
         font-size: 16px
+    }
+    h7 {
+      font-size: 14px
     }
 }
 ul,
@@ -1641,7 +1650,8 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+h7 {
     /*font-family: 'BrandonTextWeb-Regular';*/
     font-weight: 200;
     font-style: normal
@@ -1652,16 +1662,19 @@ h3 strong,
 h4 strong,
 h5 strong,
 h6 strong,
+h7 strong,
 p strong,
 li strong {
     color: inherit;
     font-family: 'BrandonTextWeb-Bold'
 }
-h5 {
+h5,
+h7 {
     font-weight: 400;
     color: #083b54;
 }
-h5 strong {
+h5 strong,
+h7 strong {
     font-weight: 600
 }
 p a,
@@ -1669,7 +1682,8 @@ h2 a,
 h3 a,
 h4 a,
 h5 a,
-h6 a {
+h6 a,
+h7 a {
     color: #117eb3;
 }
 p a:hover,
@@ -1677,7 +1691,8 @@ h2 a:hover,
 h3 a:hover,
 h4 a:hover,
 h5 a:hover,
-h6 a:hover {
+h6 a:hover,
+h7 a: hover {
     color: #1599da;
     border-bottom: 1px solid #1599da
 }
@@ -1695,6 +1710,7 @@ p {
 h4,
 h5,
 h6,
+h7,
 p {
     margin-bottom: 20px
 }
@@ -2194,6 +2210,7 @@ section:last-child:after {
 .wf-inactive h4,
 .wf-inactive h5,
 .wf-inactive h6,
+.wf-inactive h7,
 .wf-inactive p,
 .wf-inactive li,
 .wf-inactive a {
@@ -2205,6 +2222,7 @@ section:last-child:after {
 .wf-loading h4,
 .wf-loading h5,
 .wf-loading h6,
+.wf-loading h7,
 .wf-loading p,
 .wf-loading li,
 .wf-loading a,
@@ -2225,6 +2243,7 @@ section:last-child:after {
 .wf-active h4,
 .wf-active h5,
 .wf-active h6,
+.wf-active h7,
 .wf-active p,
 .wf-active li,
 .wf-active a {
