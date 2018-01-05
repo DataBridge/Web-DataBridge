@@ -1863,11 +1863,11 @@ canvas {
     image-rendering: pixelated;
     -ms-interpolation-mode: nearest-neighbor
 }
-a.databridge-logo {
+a.vlynt-logo {
     width: 132px;
     height: 50px;
     display: block;
-    background: url("../images/DataBridge.svg") no-repeat left center;
+    background: url("../images/vlynt.svg") no-repeat left center;
     background-size: contain;
     text-indent: -9999em
 }
