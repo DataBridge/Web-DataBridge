@@ -1609,31 +1609,20 @@ ul.unstyled li {
     padding: 0;
     margin: 0
 }
-/* @import url("//hello.myfonts.net/count/314625"); */
 @font-face {
     font-family: 'FormularMono';
-    /* src: url("../fonts/314625_0_0.eot");
-    src: url("../fonts/314625_0_0.eot?#iefix") format('embedded-opentype'), url("../fonts/314625_0_0.woff2") format('woff2'), url("../fonts/314625_0_0.woff") format('woff'), url("../fonts/314625_0_0.ttf") format('truetype') */
 }
 @font-face {
     font-family: 'BrandonTextWeb-BoldItalic';
-    /* src: url("../fonts/314625_1_0.eot"); */
-    /* src: url("../fonts/314625_1_0.eot?#iefix") format('embedded-opentype'), url("../fonts/314625_1_0.woff2") format('woff2'), url("../fonts/314625_1_0.woff") format('woff'), url("../fonts/314625_1_0.ttf") format('truetype') */
 }
 @font-face {
     font-family: 'BrandonTextWeb-Bold';
-    /* src: url("../fonts/314625_2_0.eot"); */
-    /* src: url("../fonts/314625_2_0.eot?#iefix") format('embedded-opentype'), url("../fonts/314625_2_0.woff2") format('woff2'), url("../fonts/314625_2_0.woff") format('woff'), url("../fonts/314625_2_0.ttf") format('truetype') */
 }
 @font-face {
     font-family: 'BrandonTextWeb-Italic';
-    /* src: url("../fonts/314625_3_0.eot"); */
-    /* src: url("../fonts/314625_3_0.eot?#iefix") format('embedded-opentype'), url("../fonts/314625_3_0.woff2") format('woff2'), url("../fonts/314625_3_0.woff") format('woff'), url("../fonts/314625_3_0.ttf") format('truetype') */
 }
 @font-face {
     font-family: 'BrandonTextWeb-Regular';
-    /* src: url("../fonts/314625_4_0.eot"); */
-    /* src: url("../fonts/314625_4_0.eot?#iefix") format('embedded-opentype'), url("../fonts/314625_4_0.woff2") format('woff2'), url("../fonts/314625_4_0.woff") format('woff'), url("../fonts/314625_4_0.ttf") format('truetype') */
 }
 body {
     font-family: 'BrandonTextWeb-Regular', 'aktiv-grotesk', helvetica neue, helvetica, arial, sans-serif, Helvetica, Arial;
