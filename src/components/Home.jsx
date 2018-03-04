@@ -177,8 +177,7 @@ function Home({ styles }) {
           />
           <Card
             title="Paradigm Shift from CDNs"
-            body={`CDN are slow to scale, costly in bandwidth and energy-hungry. 
-            Vlynt offers an ecologically clean alternative to server access, 
+            body={`Vlynt offers an ecologically clean alternative to server access, 
             dramatically reducing bandwidth costs and scaling dynamically as your 
             reach grows.`}
             imgPath="../../imgs/home/6.png"
@@ -273,17 +272,21 @@ export default withStyles(({ color, unit }) => ({
     textAlign: 'center',
   },
   card: {
+    borderRadius: '15px',
     width: '380px',
-    height: '320px',
+    height: '350px',
     boxShadow: '0 0 20px 10px rgba(0, 0, 0, .2)',
     margin: 'auto',
     marginTop: '30px',
     marginBottom: '30px',
     color: color.tabBlue,
+    paddingRight: '50px',
+    paddingLeft: '50px',
   },
   cardHover: {
+    borderRadius: '15px',
     width: '380px',
-    height: '320px',
+    height: '350px',
     boxShadow: '0 0 20px 10px rgba(0, 0, 0, .2)',
     margin: 'auto',
     marginTop: '30px',
@@ -293,7 +296,9 @@ export default withStyles(({ color, unit }) => ({
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: color.tabBlue,
+    backgroundColor: color.darkPrimary,
+    paddingRight: '50px',
+    paddingLeft: '50px',
   },
   cardImg: {
     width: '3.75cm',
