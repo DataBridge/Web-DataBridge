@@ -251,6 +251,7 @@ export default withStyles(({ color, unit }) => ({
   },
 
   thrid: {
+    marginTop: '50px',
   },
   thirdHead: {
     color: color.tabBlue,
@@ -272,21 +273,22 @@ export default withStyles(({ color, unit }) => ({
     textAlign: 'center',
   },
   card: {
-    borderRadius: '15px',
+    borderRadius: '10px',
     width: '380px',
-    height: '350px',
-    boxShadow: '0 0 20px 10px rgba(0, 0, 0, .2)',
+    height: '400px',
+    boxShadow: '0 0 20px 2px rgba(0, 0, 0, .2)',
     margin: 'auto',
     marginTop: '30px',
     marginBottom: '30px',
     color: color.tabBlue,
+    paddingTop: '50px',
     paddingRight: '50px',
     paddingLeft: '50px',
   },
   cardHover: {
-    borderRadius: '15px',
+    borderRadius: '10px',
     width: '380px',
-    height: '350px',
+    height: '400px',
     boxShadow: '0 0 20px 10px rgba(0, 0, 0, .2)',
     margin: 'auto',
     marginTop: '30px',
@@ -297,6 +299,7 @@ export default withStyles(({ color, unit }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: color.darkPrimary,
+    paddingTop: '50px',
     paddingRight: '50px',
     paddingLeft: '50px',
   },
