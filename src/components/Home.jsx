@@ -147,7 +147,7 @@ function Home({ styles }) {
           </p>
         </Row>
 
-        <Row>
+        <Row {...css(styles.cardRow)}>
           <Card
             title="One-Step Activation"
             body={`Vlynt makes deployment easy. Just add a single line of
@@ -263,6 +263,11 @@ export default withStyles(({ color, unit }) => ({
   thirdHeadBody: {
     fontSize: '24px',
     fontWeight: '400'
+  },
+  cardRow: {
+    margin: 'auto',
+    width: '100%',
+    maxWidth: '1200px',
   },
   cardContainer: {
     textAlign: 'center',
