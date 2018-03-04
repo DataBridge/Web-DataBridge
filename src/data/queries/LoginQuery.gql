@@ -1,0 +1,10 @@
+#import 'data/fragments/LogInFragment'
+
+query logIn($email: String!, $password: String!) {
+	signIn(input: {
+    email: $email
+    password: $password
+  }) {
+    ...SignInInfos
+  }
+}

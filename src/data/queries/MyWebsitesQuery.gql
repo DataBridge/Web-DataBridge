@@ -1,0 +1,7 @@
+#import 'data/fragments/WebsiteFragment'
+
+query myWebsites {
+    myWebsites {
+        ...WebsiteInfos
+    }
+}

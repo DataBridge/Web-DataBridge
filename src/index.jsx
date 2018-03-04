@@ -1,5 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
+import { BrowserRouter } from 'react-router-dom'
+import { ApolloProvider } from 'react-apollo';
+import client from 'data/client';
+import App from './components/App';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render((
+  <ApolloProvider client={client}>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </ApolloProvider>
+  ), document.getElementById('root'))

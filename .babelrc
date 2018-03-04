@@ -6,6 +6,7 @@
         "es2015", "react"
     ],
     "plugins": [
-        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }] // `style: true` for less
+        ["import", { "libraryName": "antd", "libraryDirectory": "es", "style": "css" }], // `style: true` for less
+        "transform-object-rest-spread"
       ]
 }

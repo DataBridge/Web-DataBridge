@@ -1,0 +1,7 @@
+#import 'data/fragments/MeFragment'
+
+query me {
+    me {
+        ...MeInfos
+    }
+}

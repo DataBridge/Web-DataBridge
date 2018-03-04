@@ -1,0 +1,6 @@
+query websiteDomains($websiteId: Int!) {
+    websiteDomains(id: $websiteId) {
+        name
+        verified
+    }
+}

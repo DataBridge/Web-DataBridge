@@ -1,0 +1,8 @@
+fragment SignInInfos on SignIn {
+  email
+  isLoggedIn
+  jwt
+  errors {
+    message
+  }
+}

@@ -1,0 +1,8 @@
+fragment WebsiteInfos on Website {
+    id
+    name
+    customer {
+        id
+        email
+    }
+}
