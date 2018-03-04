@@ -136,7 +136,7 @@ function Home({ styles }) {
         </Row>
       </Row>
 
-      <Row {...css(styles.third) }>
+      <Row {...css(styles.third)}>
         <Row {...css(styles.thirdHead) }>
           <p {...css(styles.thirdHeadTitle) }>
             Why use Vlynt?
@@ -206,6 +206,7 @@ export default withStyles(({ color, unit }) => ({
   first: {
     backgroundImage: color.gradientLeft,
     textAlign: 'center',
+    paddingBottom: '50px',
   },
   firstText: {
     color: 'white',
@@ -214,7 +215,7 @@ export default withStyles(({ color, unit }) => ({
     color: 'white',
   },
   firstTextWrap: {
-    marginTop: '100px',
+    marginTop: '120px',
     display: 'inline-block',
     textAlign: 'left',
   },
@@ -228,7 +229,7 @@ export default withStyles(({ color, unit }) => ({
 
   second: {
     textAlign: 'center',
-    marginTop: '30px',
+    marginTop: '120px',
   },
   speedComp: {
     width: '15.95cm',
@@ -250,12 +251,13 @@ export default withStyles(({ color, unit }) => ({
 
   },
 
-  thrid: {
-    marginTop: '50px',
+  third: {
+    marginTop: '120px',
   },
   thirdHead: {
     color: color.tabBlue,
     textAlign: 'center',
+    paddingBottom: '50px',
   },
   thirdHeadTitle: {
     fontSize: '48px',
