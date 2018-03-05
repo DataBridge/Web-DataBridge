@@ -107,6 +107,8 @@ export default  withStyles(({ color, unit }) => ({
     marginTop: '20px',
     width: '100%',
     height: '130px%',
+    paddingRight: '50px',
+    paddingLeft: '50px',
   },
   mainMenuUl: {
     width: '100%',

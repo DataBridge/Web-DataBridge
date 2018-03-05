@@ -236,7 +236,7 @@ export default withStyles(({ color, unit }) => ({
     height: '16.55cm',
   },
   secondTextWrap: {
-    marginTop: '30px',
+    marginTop: '150px',
     marginBottom: '30px',
     display: 'inline-block',
     textAlign: 'left',
@@ -301,7 +301,6 @@ export default withStyles(({ color, unit }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: color.darkPrimary,
-    paddingTop: '50px',
     paddingRight: '50px',
     paddingLeft: '50px',
   },
