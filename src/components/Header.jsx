@@ -10,21 +10,21 @@ import MeQuery from 'data/queries/MeQuery';
 function LoginSignup({ styles }) {
   return (
     <ul {...css(styles.mainMenuUl)}>
-      <li 
+      <li
         {...css(styles.loginSignup)}
-      > 
-        <Link to="/login" {...css(styles.login)}> LOGIN </Link> 
+      >
+        <Link to="/login" {...css(styles.login)}> LOGIN </Link>
       </li>
       <li
         {...css(styles.loginSignup)}
       >
-        <Link to="/signup" {...css(styles.signup)}> 
-          SIGN UP 
+        <Link to="/signup" {...css(styles.signup)}>
+          SIGN UP
         </Link>
       </li>
     </ul>
   )
-} 
+}
 
 const enhance = compose(
   graphql(MeQuery, {
@@ -40,16 +40,16 @@ const CustomerMenu = enhance(({ styles, data }) => {
     <ul {...css(styles.mainMenuUl)}>
       <li {...css(styles.mainMenuLi)}> Hi {data.me.email} !</li>
       <li {...css(styles.mainMenuLi)}> Your Account </li>
-      <li {...css(styles.mainMenuLi)}> 
-        <Link to="/panel"> 
+      <li {...css(styles.mainMenuLi)}>
+        <Link to="/panel">
           Admin Panel
         </Link>
       </li>
-      <li {...css(styles.mainMenuLi)}> 
+      <li {...css(styles.mainMenuLi)}>
         LOG OUT
       </li>
     </ul>
-      
+
     );
   else
     Comp = (
@@ -79,7 +79,7 @@ const MainMenu = ({ styles }) => {
 
 function Header({ styles}) {
   const MenuSpe = localStorage.getItem('token') ? CustomerMenu : LoginSignup;
-  const Menu = localStorage.getItem('token') ? 
+  const Menu = localStorage.getItem('token') ?
     (
       <span>
         <Col span={20} {...css(styles.colMainMenu)}>
@@ -102,10 +102,9 @@ function Header({ styles}) {
       <Col span={4} {...css(styles.colLogo)}>
         <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
       </Col>
-      {Menu}
     </Row>
   )
-} 
+}
 
 
 export default  withStyles(({ color, unit }) => ({

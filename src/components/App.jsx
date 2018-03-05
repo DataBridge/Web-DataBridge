@@ -60,4 +60,3 @@ export default  withStyles(({ color, unit }) => ({
       fontWeight: 'bold',
     },
   }))(App)
-

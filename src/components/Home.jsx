@@ -28,14 +28,14 @@ const Card = enhance(({ styles, title, body, imgPath, ...props }) => {
     );
   }
   return (
-    <Col 
-      lg={8} md={12} 
+    <Col
+      lg={8} md={12}
       {...css(styles.cardContainer)}
     >
       <div
         {...css(styles[cssStyle])}
-        onMouseEnter={props.hover} 
-        onMouseLeave={props.unhover} 
+        onMouseEnter={props.hover}
+        onMouseLeave={props.unhover}
       >
         {img}
         <p {...css(styles.cardTitle) }>
@@ -168,25 +168,25 @@ function Home({ styles }) {
             styles={styles}
           />
           <Card
-            title="Rooting"
+            title="Routing"
             body={`Your users need content: They expect you to deliver it seamlessly 
-                and they want it now. Vlynt finds the fastest route for every user. 
+                and they want it now. Vlynt finds the fastest route for every user.
                 Be it a peer or a server.`}
             imgPath="../../imgs/home/4.png"
             styles={styles}
           />
           <Card
             title="Paradigm Shift from CDNs"
-            body={`Vlynt offers an ecologically clean alternative to server access, 
-            dramatically reducing bandwidth costs and scaling dynamically as your 
+            body={`Vlynt offers an ecologically clean alternative to server access,
+            dramatically reducing bandwidth costs and scaling dynamically as your
             reach grows.`}
             imgPath="../../imgs/home/6.png"
             styles={styles}
           />
           <Card
             title="Simple Integration"
-            body={`Vlynt can be added seamlessly on top of your existing 
-              architecture in a few clicks and dynamically integrates your 
+            body={`Vlynt can be added seamlessly on top of your existing
+              architecture in a few clicks and dynamically integrates your
               existing servers and CDNs into a single network.`}
             imgPath="../../imgs/home/5.png"
             styles={styles}
@@ -317,4 +317,3 @@ export default withStyles(({ color, unit }) => ({
     fontSize: '14px',
   },
 }))(Home)
-
