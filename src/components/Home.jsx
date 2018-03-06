@@ -94,7 +94,13 @@ const Home = enhanceHome(({ styles, ...props }) => {
             <Modal 
               styles={styles} 
               visible={props.setContact} 
-              text="ContactUS"
+              text={(
+                <span>
+                Contact us. <br/>
+                <hr/>
+                julian.klug@vlynt.com
+                </span>
+              )}
             /> :
             null}
           </span>
@@ -269,14 +275,15 @@ export default withStyles(({ color, unit }) => ({
     width: '300px',
     height: '100px',
     left: '50%',
-    top: '50%',
+    top: '25%',
     marginLeft: '-150px',
-    marginTop: '-25px',
     backgroundColor: 'black',
     borderRadius: '15px',
     backgroundColor: 'white',
     color: color.darkPrimary,
     fontSize: '18px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
   },
   firstText: {
     color: 'white',
