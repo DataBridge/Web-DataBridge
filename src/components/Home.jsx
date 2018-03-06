@@ -4,6 +4,23 @@ import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col } from 'antd';
 
 
+
+function Modal({ styles, text, visible }) {
+  const handleClick = e => {
+    alert('thug')
+  }
+  return (
+    <div 
+      {...css(styles.modal)}
+      onClick={_ => visible(false)}
+    >
+      <div {...css(styles.modalContent)}>
+        {text}
+      </div>
+    </div>
+  )
+}
+
 const enhance = compose(
   withState('stateHover', 'setStateHover', false),
   withHandlers({
@@ -24,7 +41,7 @@ const Card = enhance(({ styles, title, body, imgPath, ...props }) => {
           src={imgPath}
           alt="card"
           {...css(styles.cardImg) }
-        />
+        /> 
     );
   }
   return (
@@ -49,7 +66,11 @@ const Card = enhance(({ styles, title, body, imgPath, ...props }) => {
   )
 });
 
-function Home({ styles }) {
+
+const enhanceHome = compose(
+  withState('contactVisible', 'setContact', false),
+);
+const Home = enhanceHome(({ styles, ...props }) => {
   return (
     <div {...css(styles.container) }>
       <Row {...css(styles.first) }>
@@ -63,6 +84,19 @@ function Home({ styles }) {
               Cut your client page land time <br />
               by up to 60% with a single line of code
             </p>
+            <button 
+              {...css(styles.firstContact)} 
+              onClick={_ => props.setContact(true)}
+            >
+              CONTACT US
+            </button>
+            {props.contactVisible ? 
+            <Modal 
+              styles={styles} 
+              visible={props.setContact} 
+              text="ContactUS"
+            /> :
+            null}
           </span>
         </Col>
         <Col lg={12} {...css(styles.firstGlobe) }>
@@ -197,16 +231,52 @@ function Home({ styles }) {
 
     </div>
   );
-}
+});
 
 export default withStyles(({ color, unit }) => ({
   container: {
   },
 
   first: {
-    backgroundImage: color.gradientLeft,
+    backgroundImage: `url("../../imgs/home/stars.png"), ${color.gradientLeft}`,
     textAlign: 'center',
     paddingBottom: '50px',
+  },
+  firstContact: {
+    backgroundColor: 'rgba(0,0,0,0)',
+    border: '2px solid white',
+    width: '180px',
+    height: '56px',
+    borderRadius: '27px',
+    fontSize: '18px',
+    ':hover': {
+      cursor: 'pointer',
+    },
+  },
+  modal: {
+    position: 'fixed',
+    zIndex: 1,
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    textAlign: 'center',
+  },
+  modalContent: {
+    position: 'absolute',
+    width: '300px',
+    height: '100px',
+    left: '50%',
+    top: '50%',
+    marginLeft: '-150px',
+    marginTop: '-25px',
+    backgroundColor: 'black',
+    borderRadius: '15px',
+    backgroundColor: 'white',
+    color: color.darkPrimary,
+    fontSize: '18px',
   },
   firstText: {
     color: 'white',
