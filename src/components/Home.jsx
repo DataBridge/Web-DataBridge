@@ -284,6 +284,7 @@ export default withStyles(({ color, unit }) => ({
     fontSize: '18px',
     paddingLeft: '20px',
     paddingRight: '20px',
+    paddingTop: '12px'
   },
   firstText: {
     color: 'white',
