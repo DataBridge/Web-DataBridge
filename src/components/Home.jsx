@@ -10,7 +10,7 @@ function Modal({ styles, text, visible }) {
     alert('thug')
   }
   return (
-    <div 
+    <div
       {...css(styles.modal)}
       onClick={_ => visible(false)}
     >
@@ -41,18 +41,18 @@ const Card = enhance(({ styles, title, body, imgPath, ...props }) => {
           src={imgPath}
           alt="card"
           {...css(styles.cardImg) }
-        /> 
+        />
     );
   }
   return (
-    <Col 
-      lg={8} md={12} 
+    <Col
+      lg={8} md={12}
       {...css(styles.cardContainer)}
     >
       <div
         {...css(styles[cssStyle])}
-        onMouseEnter={props.hover} 
-        onMouseLeave={props.unhover} 
+        onMouseEnter={props.hover}
+        onMouseLeave={props.unhover}
       >
         {img}
         <p {...css(styles.cardTitle) }>
@@ -84,17 +84,17 @@ const Home = enhanceHome(({ styles, ...props }) => {
               Cut your client page land time <br />
               by up to 60% with a single line of code
             </p>
-            <button 
-              {...css(styles.firstContact)} 
+            <button
+              {...css(styles.firstContact)}
               onClick={_ => props.setContact(true)}
               id='contact-us'
             >
               CONTACT US
             </button>
-            {props.contactVisible ? 
-            <Modal 
-              styles={styles} 
-              visible={props.setContact} 
+            {props.contactVisible ?
+            <Modal
+              styles={styles}
+              visible={props.setContact}
               text={(
                 <span>
                 Contact us. <br/>
@@ -129,7 +129,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
               <p {...css(styles.secondBody) }>
                 This means that the number of current Vlynt-enabled site users
                 continues to rise with the total available network and computing
-                capacity, providing a constantlyimproving online experience.
+                capacity, providing a constantly improving online experience.
               </p>
             </span>
           </Col>
@@ -209,25 +209,25 @@ const Home = enhanceHome(({ styles, ...props }) => {
             styles={styles}
           />
           <Card
-            title="Rooting"
-            body={`Your users need content: They expect you to deliver it seamlessly 
-                and they want it now. Vlynt finds the fastest route for every user. 
+            title="Routing"
+            body={`Your users need content: They expect you to deliver it seamlessly
+                and they want it now. Vlynt finds the fastest route for every user.
                 Be it a peer or a server.`}
             imgPath="../../imgs/home/4.png"
             styles={styles}
           />
           <Card
             title="Paradigm Shift from CDNs"
-            body={`Vlynt offers an ecologically clean alternative to server access, 
-            dramatically reducing bandwidth costs and scaling dynamically as your 
+            body={`Vlynt offers an ecologically clean alternative to server access,
+            dramatically reducing bandwidth costs and scaling dynamically as your
             reach grows.`}
             imgPath="../../imgs/home/6.png"
             styles={styles}
           />
           <Card
             title="Simple Integration"
-            body={`Vlynt can be added seamlessly on top of your existing 
-              architecture in a few clicks and dynamically integrates your 
+            body={`Vlynt can be added seamlessly on top of your existing
+              architecture in a few clicks and dynamically integrates your
               existing servers and CDNs into a single network.`}
             imgPath="../../imgs/home/5.png"
             styles={styles}
@@ -396,4 +396,3 @@ export default withStyles(({ color, unit }) => ({
     fontSize: '14px',
   },
 }))(Home)
-
