@@ -87,7 +87,6 @@ const Home = enhanceHome(({ styles, ...props }) => {
             <button 
               {...css(styles.firstContact)} 
               onClick={_ => props.setContact(true)}
-              id='contact-us'
             >
               CONTACT US
             </button>
