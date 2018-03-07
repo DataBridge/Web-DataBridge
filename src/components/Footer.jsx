@@ -49,7 +49,7 @@ function Menu({ styles }) {
 function Footer({ styles, text}) {
   return (
     <Row {...css(styles.container)}>
-        <Row>
+{/*         <Row>
           <Col span={2}>
             <img 
               src="../../imgs/logos/logo_footer.png"
@@ -64,13 +64,13 @@ function Footer({ styles, text}) {
           </Col>
         </Row>
 
-        <hr {...css(styles.sep)}/>
+        <hr {...css(styles.sep)}/> */}
 
         <Row {...css(styles.secondRow)}>
-          <Col span={2} {...css(styles.at)}>
+          <Col span={4} {...css(styles.at)}>
             @ Vlynt 2018
           </Col>
-          <Col span={3}>
+{/*           <Col span={3}>
             <Link to="/terms" {...css(styles.terms)}> 
               Privacy & Terms 
             </Link>
@@ -96,7 +96,7 @@ function Footer({ styles, text}) {
               alt="instagram"
               {...css(styles.social)}
             />
-          </Col>
+          </Col> */}
         </Row>
     </Row>
   )
