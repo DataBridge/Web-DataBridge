@@ -176,11 +176,11 @@ export default  withStyles(({ color, unit }) => ({
   },
   contactButton: {
     backgroundColor: 'rgba(0,0,0,0)',
-    border: '2px solid white',
-    width: '180px',
-    height: '56px',
+    border: '1px solid white',
+    width: '120px',
+    height: '30px',
     borderRadius: '27px',
-    fontSize: '18px',
+    fontSize: '14',
     ':hover': {
       cursor: 'pointer',
     },

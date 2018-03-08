@@ -87,7 +87,6 @@ const Home = enhanceHome(({ styles, ...props }) => {
             <button
               {...css(styles.firstContact)}
               onClick={_ => props.setContact(true)}
-              id='contact-us'
             >
               CONTACT US
             </button>
@@ -133,7 +132,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
               </p>
             </span>
           </Col>
-          <Col lg={12}>
+          <Col lg={12} {...css(styles.secondImg) }>
             <img
               src="../../imgs/home/comp.png"
               alt="computers"
@@ -143,7 +142,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
         </Row>
 
         <Row>
-          <Col lg={12}>
+          <Col lg={12} {...css(styles.secondImg) }>
             <img
               src="../../imgs/home/speed.png"
               alt="speed"
@@ -315,8 +314,7 @@ export default withStyles(({ color, unit }) => ({
     height: '16.55cm',
   },
   secondTextWrap: {
-    marginTop: '150px',
-    marginBottom: '30px',
+    marginTop: '100px',
     display: 'inline-block',
     textAlign: 'left',
     color: color.tabBlue
@@ -327,8 +325,11 @@ export default withStyles(({ color, unit }) => ({
   secondBody: {
     fontSize: '17px',
     width: '12cm',
-
   },
+  secondImg: {
+    marginTop: '100px',
+  },
+
 
   third: {
     marginTop: '120px',
