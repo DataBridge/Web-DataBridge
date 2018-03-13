@@ -2,29 +2,44 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
-import { withState } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col, Spin } from 'antd';
-import { compose } from 'recompose';
 import MeQuery from 'data/queries/MeQuery';
+
+function Modal({ styles, text, visible }) {
+  const handleClick = e => {
+    alert('thug')
+  }
+  return (
+    <div
+      {...css(styles.modal)}
+      onClick={_ => visible(false)}
+    >
+      <div {...css(styles.modalContent)}>
+        {text}
+      </div>
+    </div>
+  )
+}
 
 function LoginSignup({ styles }) {
   return (
     <ul {...css(styles.mainMenuUl)}>
-      <li 
+      <li
         {...css(styles.loginSignup)}
-      > 
-        <Link to="/login" {...css(styles.login)}> LOGIN </Link> 
+      >
+        <Link to="/login" {...css(styles.login)}> LOGIN </Link>
       </li>
       <li
         {...css(styles.loginSignup)}
       >
-        <Link to="/signup" {...css(styles.signup)}> 
-          SIGN UP 
+        <Link to="/signup" {...css(styles.signup)}>
+          SIGN UP
         </Link>
       </li>
     </ul>
   )
-} 
+}
 
 const enhance = compose(
   graphql(MeQuery, {
@@ -40,16 +55,16 @@ const CustomerMenu = enhance(({ styles, data }) => {
     <ul {...css(styles.mainMenuUl)}>
       <li {...css(styles.mainMenuLi)}> Hi {data.me.email} !</li>
       <li {...css(styles.mainMenuLi)}> Your Account </li>
-      <li {...css(styles.mainMenuLi)}> 
-        <Link to="/panel"> 
+      <li {...css(styles.mainMenuLi)}>
+        <Link to="/panel">
           Admin Panel
         </Link>
       </li>
-      <li {...css(styles.mainMenuLi)}> 
+      <li {...css(styles.mainMenuLi)}>
         LOG OUT
       </li>
     </ul>
-      
+
     );
   else
     Comp = (
@@ -77,9 +92,12 @@ const MainMenu = ({ styles }) => {
   )
 };
 
-function Header({ styles}) {
+const enhanceHeader = compose(
+  withState('contactVisible', 'setContact', false),
+);
+const Header = enhanceHeader(({ styles, ...props }) => {
   const MenuSpe = localStorage.getItem('token') ? CustomerMenu : LoginSignup;
-  const Menu = localStorage.getItem('token') ? 
+  const Menu = localStorage.getItem('token') ?
     (
       <span>
         <Col span={20} {...css(styles.colMainMenu)}>
@@ -106,16 +124,29 @@ function Header({ styles}) {
       </Col>
       <Col span={15}/>
       <Col span={5} {...css(styles.contactContainer)}>
-        <button 
-          {...css(styles.contactButton)} 
-          onClick={simulateClick}
+        <button
+          {...css(styles.contactButton)}
+          onClick={_ => props.setContact(true)}
         >
           CONTACT US
         </button>
+        {props.contactVisible ?
+        <Modal
+          styles={styles}
+          visible={props.setContact}
+          text={(
+            <span>
+            Contact us. <br/>
+            <hr/>
+            julian.klug@vlynt.com
+            </span>
+          )}
+        /> :
+        null}
       </Col>
     </Row>
   )
-} 
+})
 
 
 export default  withStyles(({ color, unit }) => ({
@@ -123,6 +154,33 @@ export default  withStyles(({ color, unit }) => ({
     backgroundImage: color.gradientLeft,
     color: 'white',
     height: '80px',
+  },
+  modal: {
+    position: 'fixed',
+    zIndex: 1,
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    textAlign: 'center',
+  },
+  modalContent: {
+    position: 'absolute',
+    width: '300px',
+    height: '100px',
+    left: '50%',
+    top: '25%',
+    marginLeft: '-150px',
+    backgroundColor: 'black',
+    borderRadius: '15px',
+    backgroundColor: 'white',
+    color: color.darkPrimary,
+    fontSize: '18px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '12px'
   },
   colMainMenu: {
     textAlign: 'center',
