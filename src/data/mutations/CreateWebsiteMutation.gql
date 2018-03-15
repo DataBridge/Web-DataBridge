@@ -1,0 +1,7 @@
+mutation createWebsite($input: CreateWebsiteInput!){
+  createWebsite(input: $input){
+    website {
+      id
+    }
+  }
+}

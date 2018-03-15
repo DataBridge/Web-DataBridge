@@ -1,0 +1,8 @@
+mutation disableDomain($id: Int!){
+  disableDomain(id: $id){
+    domain {
+      id
+      enabled 
+    }
+  }
+}
