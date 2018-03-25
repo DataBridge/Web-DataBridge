@@ -17,7 +17,7 @@ function App({ styles }) {
     <div>
       <Header/>
       <Home/>
-      <Footer/>
+{/*       <Footer/> */}
     </div>
   )
 
@@ -25,7 +25,7 @@ const LoginLayout = () => (
   <div>
     <Header/>
     <LogIn/>
-    <Footer/>
+{/*     <Footer/> */}
   </div>
 );
 
@@ -33,7 +33,7 @@ const WelcomeLayout = () => (
   <div>
     <Header/>
     <Welcome/>
-    <Footer/>
+{/*     <Footer/> */}
   </div>
 );
 
@@ -41,7 +41,7 @@ const PanelLayout = () => (
   <div>
     <Header/>
     <AdminPanel/>
-    <Footer/>
+{/*     <Footer/> */}
   </div>
 );
 

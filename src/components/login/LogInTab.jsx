@@ -84,6 +84,7 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
       />
       <InputV 
         placeholder="Password"
+        pwd={true}
         validate={(x) => x.length > 3}
         state={statePwd}
         valid={validPwd}

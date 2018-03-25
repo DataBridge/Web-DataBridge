@@ -24,7 +24,6 @@ const enhance = compose(
   graphql(CreateWebsiteMutation, { name: 'createWebsite' }),
 );
 const WebsiteZone = enhance(({ styles, data, setValue, ...props }) => {
-  console.log(data)
   if (data.loading)
     return <Spin size="large" /> 
 
@@ -56,7 +55,7 @@ const WebsiteZone = enhance(({ styles, data, setValue, ...props }) => {
       <Col span={2} {...css(styles.text)}>
         Website: 
       </Col>
-      <Col span={12}>
+      <Col span={14}>
         <Dropdown 
           options={options} 
           value={"Select a website"} placeholder="Select an option"
@@ -66,8 +65,7 @@ const WebsiteZone = enhance(({ styles, data, setValue, ...props }) => {
       <Col span={7}>
         <Primary text="ADD NEW" onClick={props.showModWeb}/>
       </Col>
-      <Col span={3}>
-        fa
+      <Col span={1}>
       </Col>
     </Row>
   )

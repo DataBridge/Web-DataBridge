@@ -4,6 +4,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import Tabs from 'components/tabs/Tabs';
 import WebsiteZone from './WebsiteZone';
 import Domains from './Domains';
+import Stats from './Stats';
 
 const enhance = compose(
   withState('stateWebsite', 'setStateWebsite', null),
@@ -29,7 +30,7 @@ const AdminPanel = enhance(({ styles, ...props }) => {
             comps={[
               <Domains websiteId={props.stateWebsite}/>,
               <span> xxxx </span>,
-              <span> yyyy </span>,
+              <Stats websiteId={props.stateWebsite}/>,
               <span> djakdi </span>,
             ]}
           />

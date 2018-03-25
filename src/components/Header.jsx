@@ -1,4 +1,5 @@
 import React from 'react';
+import { withApollo } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
@@ -32,21 +33,28 @@ const enhance = compose(
       skip: !localStorage.getItem('token'),
     })
   }),
+  withApollo,
 );
-const CustomerMenu = enhance(({ styles, data }) => {
+const CustomerMenu = enhance(({ styles, data, client }) => {
   let Comp;
+  const handleLogout = () => {
+    client.resetStore();
+    localStorage.clear();
+  }
   if (data && data.me)
     Comp = (
     <ul {...css(styles.mainMenuUl)}>
       <li {...css(styles.mainMenuLi)}> Hi {data.me.email} !</li>
-      <li {...css(styles.mainMenuLi)}> Your Account </li>
+{/*       <li {...css(styles.mainMenuLi)}> Your Account </li> */}
       <li {...css(styles.mainMenuLi)}> 
-        <Link to="/panel"> 
+        <Link to="/panel" {...css(styles.link)}> 
           Admin Panel
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}> 
-        LOG OUT
+        <Link to="/" onClick={handleLogout} {...css(styles.link)}> 
+          LOG OUT
+        </Link>
       </li>
     </ul>
       
@@ -100,7 +108,9 @@ function Header({ styles}) {
   return (
     <Row {...css(styles.container)}>
       <Col span={4} {...css(styles.colLogo)}>
+      <Link to="/">
         <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
+      </Link>
       </Col>
       {Menu}
     </Row>
@@ -157,5 +167,11 @@ export default  withStyles(({ color, unit }) => ({
     logo: {
       width: '3.81cm',
       height: '1.41cm'
+    },
+    link: {
+      color: 'white',
+      ':hover': {
+        color: color.lightPrimary,
+      },
     },
   }))(Header)

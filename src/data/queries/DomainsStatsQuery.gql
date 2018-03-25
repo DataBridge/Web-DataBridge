@@ -1,0 +1,10 @@
+query domainsStats($ids: [Int]!, $from: String!, $to: String!) {
+    domainsStats(ids: $ids, from: $from, to: $to) {
+        id
+        time
+        DomainId
+        vlynt
+        fallback
+    }
+}
+

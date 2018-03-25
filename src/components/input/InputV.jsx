@@ -3,7 +3,7 @@ import { withApollo } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
 
 const InputV = ({ styles, placeholder, state, empty, valid,
-  invalid, validate, setValue, display }) => {
+  invalid, validate, setValue, display, pwd }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     if (!value)
@@ -57,7 +57,7 @@ const InputV = ({ styles, placeholder, state, empty, valid,
       {title}
       <input
         {...css(styles['input'+styleSuffix])}
-        type="text"
+        type={pwd ? 'password' : 'text'}
         placeholder={placeholder}
         onChange={handleChange}
       />
