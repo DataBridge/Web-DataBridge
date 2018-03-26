@@ -371,7 +371,6 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   return (
     <div {...css(styles.container)}>
       {header}
-      {props.websiteId} -- {props.domainSelect}
       <Row>
         <Col lg={11} md={24} {...css(styles.cardContainer)}>
           <ChartCard 
@@ -400,7 +399,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
               body: `$ ${totalCost}`
             }}
             right={{
-              title: 'AVRAGE RATE',
+              title: 'AVERAGE RATE',
               body: (<span> {`$ ${meanCost}`} <span {...css(styles.gb)}>
                  / GB</span></span>)
             }}

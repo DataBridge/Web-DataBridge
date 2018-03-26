@@ -85,7 +85,7 @@ const SignUpTab = enhance(({ styles, children, stateEmail, statePwd, stateCPwd,
         empty={emptyPwd}
       />
       <InputV 
-        placeholder="Confrim Password"
+        placeholder="Confirm Password"
         validate={(x) => x.length > 3}
         state={stateCPwd}
         valid={validCPwd}

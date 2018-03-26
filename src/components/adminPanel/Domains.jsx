@@ -118,7 +118,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
       <table {...(css(styles.table))}>
         <thead>
           <tr {...css(styles.head)}>
-            <th {...(css(styles.colLeftTop))}> taz </th>
+            <th {...(css(styles.colLeftTop))}>  </th>
             <th {...(css(styles.colMidTop))}> Domain </th> 
             <th {...(css(styles.colMidTop))}> Enable </th>
             <th {...(css(styles.colRightTop))}> Verified </th>
@@ -141,7 +141,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
           <Primary text="ADD DOMAIN" onClick={props.showModDom}/>
         </Col>
         <Col span={8} {...css(styles.colFooter)}>
-          Rows per page: 
+          Rows per page: &nbsp;&nbsp;
           <Select 
             labelInValue 
             defaultValue={{ key: props.stateRowsPP }} 

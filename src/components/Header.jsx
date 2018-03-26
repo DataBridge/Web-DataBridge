@@ -52,7 +52,7 @@ const CustomerMenu = enhance(({ styles, data, client }) => {
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}> 
-        <Link to="/" onClick={handleLogout} {...css(styles.link)}> 
+        <Link to="/" onClick={handleLogout} {...css(styles.signup)}> 
           LOG OUT
         </Link>
       </li>
@@ -90,7 +90,7 @@ function Header({ styles}) {
   const Menu = localStorage.getItem('token') ? 
     (
       <span>
-        <Col span={20} {...css(styles.colMainMenu)}>
+        <Col span={20} {...css(styles.colMainMenuSpe)}>
           <MenuSpe styles={styles} />
         </Col>
       </span>
@@ -126,6 +126,10 @@ export default  withStyles(({ color, unit }) => ({
     },
     colMainMenu: {
       textAlign: 'center',
+      paddingTop: '25px',
+    },
+    colMainMenuSpe: {
+      textAlign: 'right',
       paddingTop: '25px',
     },
     colLogo: {
