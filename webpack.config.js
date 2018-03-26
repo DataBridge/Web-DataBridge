@@ -32,6 +32,9 @@ module.exports = {
   },
 	plugins: [
     HtmlWebpackPluginConfig,
+    new webpack.DefinePlugin({
+      'process.env.DATABRIDGE_HUB_GRAPHQL': JSON.stringify(process.env.DATABRIDGE_HUB_GRAPHQL)
+    })
 /*     new webpack.DefinePlugin({
       'process.env': {
       'NODE_ENV': "'production'",

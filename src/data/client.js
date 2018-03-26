@@ -3,8 +3,10 @@ import { createHttpLink } from 'apollo-link-http';
 import { setContext } from 'apollo-link-context';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 
+const hubAddress = process.env.DATABRIDGE_HUB_GRAPHQL || 'http://localhost:9000/graphql';
+
 const httpLink = createHttpLink({
-  uri: 'http://localhost:9000/graphql',
+  uri: hubAddress,
   credentials: '*',
 });
 
