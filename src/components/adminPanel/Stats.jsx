@@ -209,7 +209,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   const threshold = map(costData, 'threshold');
 
   const totalCost = sum(cost);
-  const meanCost = Math.round(mean(cost)*100) / 100;
+  const meanCost = totalCost / totalVlynt;
 
   const charOpts = {
     title: {
@@ -396,11 +396,11 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
             options={charOpts}
             left={{
               title: 'TOTAL COST',
-              body: `$ ${totalCost}`
+              body: `$ ${totalCost.toFixed(2)}`
             }}
             right={{
               title: 'AVERAGE RATE',
-              body: (<span> {`$ ${meanCost}`} <span {...css(styles.gb)}>
+              body: (<span> {`$ ${meanCost.toFixed(2)}`} <span {...css(styles.gb)}>
                  / GB</span></span>)
             }}
           />

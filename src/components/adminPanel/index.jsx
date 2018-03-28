@@ -29,9 +29,9 @@ const AdminPanel = enhance(({ styles, ...props }) => {
             titles={['DOMAINS', 'PATTERNS', 'STATISTICS', 'MAP']}
             comps={[
               <Domains websiteId={props.stateWebsite}/>,
-              <span> xxxx </span>,
+              <span> Coming Soon </span>,
               <Stats websiteId={props.stateWebsite}/>,
-              <span> djakdi </span>,
+              <span> Coming Soon </span>,
             ]}
           />
         </div>
