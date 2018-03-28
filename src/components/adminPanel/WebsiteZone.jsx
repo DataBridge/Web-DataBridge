@@ -23,7 +23,8 @@ const enhance = compose(
   }),
   graphql(CreateWebsiteMutation, { name: 'createWebsite' }),
 );
-const WebsiteZone = enhance(({ styles, data, setValue, ...props }) => {
+const WebsiteZone = enhance(({ styles, data, setValue, webSelect, 
+  ...props }) => {
   if (data.loading)
     return <Spin size="large" /> 
 
@@ -42,6 +43,9 @@ const WebsiteZone = enhance(({ styles, data, setValue, ...props }) => {
     value: w.id,
     label: w.name,
   }));
+  
+  if (!webSelect)
+    setValue(options[0].value)
 
   return (
     <Row {...css(styles.container)}>
@@ -58,7 +62,7 @@ const WebsiteZone = enhance(({ styles, data, setValue, ...props }) => {
       <Col span={14}>
         <Dropdown 
           options={options} 
-          value={"Select a website"} placeholder="Select an option"
+          value={options[0].label} placeholder="Select an option"
           onChange={({ value }) => setValue(value)}
         />
       </Col>

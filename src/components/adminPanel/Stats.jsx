@@ -88,9 +88,9 @@ function ChartCard({ styles, data, options, left, right }) {
 
 const enhance = compose(
   withState('domainsIds', 'setDomainsIds', []),
-  withState('from', 'setFrom', moment.now()),
-  withState('fromStart', 'setFromStart', moment.now()),
-  withState('to', 'setTo', moment.now()),
+  withState('from', 'setFrom', moment().add(-2, 'days').format('YYYY-MM-DD')),
+  withState('fromStart', 'setFromStart', moment().add(-2, 'days').format('YYYY-MM-DD')),
+  withState('to', 'setTo', moment().format('YYYY-MM-DD')),
   withState('domainSelect', 'setDomainSelect', null),
   withHandlers({
     nextPage: ({ setStateCurrPage }) => () => setStateCurrPage(x => x+1),
@@ -134,6 +134,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   if (domainsIds.toString() !== props.domainsIds.toString())
     props.setDomainsIds(domainsIds);
 
+
   const options = domainsQuery.websiteDomains.map(w => ({
     value: w.id,
     label: w.name,
@@ -141,6 +142,9 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   const selectedOption = props.domainSelect ? options.filter(x => {
     return x.value == props.domainSelect
   })[0] : { value: 'Domains', label: 'Domains'};
+
+  if (!props.domainSelect)
+    props.setDomainSelect(options[0].value)
 
   const handleFrom = (m, dateString) => {
     const mm = m.clone().startOf('month');
@@ -188,11 +192,20 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   if (statsQuery && statsQuery.loading)
     return <Spin size="large" /> 
 
-  const chartData = sortBy(statsQuery.domainsStats, x => {
+  let chartData = sortBy(statsQuery.domainsStats, x => {
     return new Date(x.time);
   }).filter(x => {
      return x.DomainId == props.domainSelect;
   });
+
+  const costData = computeCost(chartData, pricingsQuery.websitePricings);
+  const cost = map(costData, 'cost');
+  const threshold = map(costData, 'threshold');
+
+  chartData = chartData.filter(x => {
+    console.log(props.from, '======')
+    return new Date(x.time) >= new Date(props.from);
+  })
 
   const statsVlynt = map(chartData, 'vlynt');
   const statsFallBack = map(chartData, 'fallback');
@@ -204,9 +217,8 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   })
   const times = map(chartData, 'time');
 
-  const costData = computeCost(chartData, pricingsQuery.websitePricings);
-  const cost = map(costData, 'cost');
-  const threshold = map(costData, 'threshold');
+
+
 
   const totalCost = sum(cost);
   const meanCost = totalCost / totalVlynt;
@@ -442,6 +454,7 @@ export default  withStyles(({ color, unit }) => ({
   headerRow: {
     display: 'flex',
     alignItems: 'center',
+    marginBottom: '20px',
   },
   gb: {
     color: color.lightGrey,

@@ -20,7 +20,10 @@ const AdminPanel = enhance(({ styles, ...props }) => {
       </div>
 
       <div {...css(styles.website)}>
-        <WebsiteZone setValue={props.setStateWebsite}/>
+        <WebsiteZone
+          setValue={props.setStateWebsite}
+          webSelect={props.stateWebsite}
+        />
       </div>
 
       <div {...css(styles.tabsBack)}>
