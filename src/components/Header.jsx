@@ -104,11 +104,8 @@ function Header({ styles}) {
       <Col span={4} {...css(styles.colLogo)}>
         <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
       </Col>
-      <Col span={16}/>
-        <Col span={1} {...css(styles.contactContainer)}>
-          FAQ
-        </Col>
-      <Col span={3} {...css(styles.contactContainer)}>
+      <Col span={15}/>
+      <Col span={5} {...css(styles.contactContainer)}>
         <button
           {...css(styles.contactButton)}
           onClick={simulateClick}
