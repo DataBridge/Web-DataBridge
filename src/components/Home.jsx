@@ -302,6 +302,7 @@ export default withStyles(({ color, unit }) => ({
     fontSize: '24px',
     fontWeight: '400'
   },
+  
   cardRow: {
     margin: 'auto',
     width: '100%',

@@ -8,6 +8,7 @@ import Footer from './Footer';
 import LogIn from './login/LogIn';
 import Welcome from './Welcome';
 import AdminPanel from './adminPanel';
+import Faq from './docs/FAQ'
 
 localStorage.clear();
 
@@ -45,12 +46,21 @@ const PanelLayout = () => (
   </div>
 );
 
+const FaqLayout = () => (
+  <div>
+    <Header/>
+    <Faq/>
+    <Footer/>
+  </div>
+);
+
   return (
     <div {...css(styles.theme)}>
       <Route exact path="/" component={HomeLayout}/>
       <Route path="/login" component={LoginLayout}/>
       <Route path="/welcome" component={WelcomeLayout}/>
       <Route path="/panel" component={PanelLayout}/>
+      <Route path="/faq" component={FaqLayout}/>
     </div>);
 }
 
@@ -60,4 +70,3 @@ export default  withStyles(({ color, unit }) => ({
       fontWeight: 'bold',
     },
   }))(App)
-
