@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
-import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col, Spin } from 'antd';
+import { compose, withState, withHandlers } from 'recompose';
 import MeQuery from 'data/queries/MeQuery';
 
 function Modal({ styles, text, visible }) {
@@ -20,7 +20,7 @@ function Modal({ styles, text, visible }) {
       </div>
     </div>
   )
-}
+};
 
 function LoginSignup({ styles }) {
   return (
@@ -39,7 +39,7 @@ function LoginSignup({ styles }) {
       </li>
     </ul>
   )
-}
+};
 
 const enhance = compose(
   graphql(MeQuery, {
@@ -114,16 +114,15 @@ const Header = enhanceHeader(({ styles, ...props }) => {
         </Col>
       </span>
     )
-  const simulateClick = () => {
-    document.getElementById('contact-us').click();
-  }
-  return (
-    <Row {...css(styles.container)}>
-      <Col span={4} {...css(styles.colLogo)}>
-        <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
-      </Col>
+  const temporarayMenu = (
+    <span>
       <Col span={15}/>
-      <Col span={5} {...css(styles.contactContainer)}>
+      <Col span={1} {...css(styles.tempMenuItem)}>
+        <Link to="/faq" {...css(styles.link)}>
+          FAQ
+        </Link>
+      </Col>
+      <Col span={4} {...css(styles.contactContainer)}>
         <button
           {...css(styles.contactButton)}
           onClick={_ => props.setContact(true)}
@@ -131,19 +130,30 @@ const Header = enhanceHeader(({ styles, ...props }) => {
           CONTACT US
         </button>
         {props.contactVisible ?
-        <Modal
-          styles={styles}
-          visible={props.setContact}
-          text={(
-            <span>
-            Contact us. <br/>
-            <hr/>
-            julian.klug@vlynt.com
-            </span>
-          )}
-        /> :
-        null}
+          <Modal
+            styles={styles}
+            visible={props.setContact}
+            text={(
+              <span>
+                Contact us. <br/>
+              <hr/>
+                julian.klug@vlynt.com
+              </span>
+            )}/> :
+          null
+        }
       </Col>
+    </span>
+  )
+
+  return (
+    <Row {...css(styles.container)}>
+      <Col span={4} {...css(styles.colLogo)}>
+        <Link to="/">
+          <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
+        </Link>
+      </Col>
+      {temporarayMenu}
     </Row>
   )
 })
@@ -242,5 +252,19 @@ export default  withStyles(({ color, unit }) => ({
     ':hover': {
       cursor: 'pointer',
     },
+  },
+  link: {
+    color: 'white',
+    ':hover': {
+      color: color.lightPrimary,
+    },
+  },
+  tempMenuItem: {
+    color: 'white',
+    fontSize: '18px',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   }))(Header)
