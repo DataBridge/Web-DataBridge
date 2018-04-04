@@ -2,10 +2,25 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
-import { withState } from 'recompose';
 import { Row, Col, Spin } from 'antd';
-import { compose } from 'recompose';
+import { compose, withState, withHandlers } from 'recompose';
 import MeQuery from 'data/queries/MeQuery';
+
+function Modal({ styles, text, visible }) {
+  const handleClick = e => {
+    alert('thug')
+  }
+  return (
+    <div
+      {...css(styles.modal)}
+      onClick={_ => visible(false)}
+    >
+      <div {...css(styles.modalContent)}>
+        {text}
+      </div>
+    </div>
+  )
+};
 
 function LoginSignup({ styles }) {
   return (
@@ -24,7 +39,7 @@ function LoginSignup({ styles }) {
       </li>
     </ul>
   )
-}
+};
 
 const enhance = compose(
   graphql(MeQuery, {
@@ -77,7 +92,10 @@ const MainMenu = ({ styles }) => {
   )
 };
 
-function Header({ styles}) {
+const enhanceHeader = compose(
+  withState('contactVisible', 'setContact', false),
+);
+const Header = enhanceHeader(({ styles, ...props }) => {
   const MenuSpe = localStorage.getItem('token') ? CustomerMenu : LoginSignup;
   const Menu = localStorage.getItem('token') ?
     (
@@ -96,26 +114,49 @@ function Header({ styles}) {
         </Col>
       </span>
     )
-  const simulateClick = () => {
-    document.getElementById('contact-us').click();
-  }
-  return (
-    <Row {...css(styles.container)}>
-      <Col span={4} {...css(styles.colLogo)}>
-        <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
-      </Col>
+  const temporarayMenu = (
+    <span>
       <Col span={15}/>
-      <Col span={5} {...css(styles.contactContainer)}>
+      <Col span={1} {...css(styles.tempMenuItem)}>
+        <Link to="/faq" {...css(styles.link)}>
+          FAQ
+        </Link>
+      </Col>
+      <Col span={4} {...css(styles.contactContainer)}>
         <button
           {...css(styles.contactButton)}
-          onClick={simulateClick}
+          onClick={_ => props.setContact(true)}
         >
           CONTACT US
         </button>
+        {props.contactVisible ?
+          <Modal
+            styles={styles}
+            visible={props.setContact}
+            text={(
+              <span>
+                Contact us. <br/>
+              <hr/>
+                julian.klug@vlynt.com
+              </span>
+            )}/> :
+          null
+        }
       </Col>
+    </span>
+  )
+
+  return (
+    <Row {...css(styles.container)}>
+      <Col span={4} {...css(styles.colLogo)}>
+        <Link to="/">
+          <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
+        </Link>
+      </Col>
+      {temporarayMenu}
     </Row>
   )
-}
+})
 
 
 export default  withStyles(({ color, unit }) => ({
@@ -123,6 +164,33 @@ export default  withStyles(({ color, unit }) => ({
     backgroundImage: color.gradientLeft,
     color: 'white',
     height: '80px',
+  },
+  modal: {
+    position: 'fixed',
+    zIndex: 1,
+    left: 0,
+    top: 0,
+    width: '100%',
+    height: '100%',
+    overflow: 'auto',
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    textAlign: 'center',
+  },
+  modalContent: {
+    position: 'absolute',
+    width: '300px',
+    height: '100px',
+    left: '50%',
+    top: '25%',
+    marginLeft: '-150px',
+    backgroundColor: 'black',
+    borderRadius: '15px',
+    backgroundColor: 'white',
+    color: color.darkPrimary,
+    fontSize: '18px',
+    paddingLeft: '20px',
+    paddingRight: '20px',
+    paddingTop: '12px'
   },
   colMainMenu: {
     textAlign: 'center',
@@ -185,4 +253,17 @@ export default  withStyles(({ color, unit }) => ({
       cursor: 'pointer',
     },
   },
+  link: {
+    color: 'white',
+    ':hover': {
+      color: color.lightPrimary,
+    },
+  },
+  tempMenuItem: {
+    color: 'white',
+    fontSize: '18px',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',  },
   }))(Header)

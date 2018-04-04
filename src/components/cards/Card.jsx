@@ -16,7 +16,7 @@ const Card = enhance(({ styles, title, body, imgPath, ...props }) => {
   let img;
   if (props.stateHover) {
     cssStyle = 'cardHover';
-    img = null
+    img = null;
   } else {
     cssStyle = 'card';
     img = (
@@ -26,6 +26,9 @@ const Card = enhance(({ styles, title, body, imgPath, ...props }) => {
           {...css(styles.cardImg) }
         />
     );
+    if (typeof imgPath === "undefined") {
+      img = null;
+    }
   }
   return (
     <Col
