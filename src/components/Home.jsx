@@ -37,7 +37,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
               Web Accelerator
             </p>
             <p {...css(styles.firstBody) }>
-              Cut your client page land time <br />
+              Cut your content delivery costs <br />
               by up to 60% with a single line of code
             </p>
             <button
@@ -76,15 +76,15 @@ const Home = enhanceHome(({ styles, ...props }) => {
               </p>
               <p {...css(styles.secondBody) }>
                 Vlynt removes CDN bottlenecks by enabling your users to load
-                content directly from the nearest server or from another user,
+                content directly from another user,
                 with complete transparency and on any device. As your user
                 base grows, so does your reach. We are effectively building a
                 faster Internet on top of the older CDN model.
               </p>
               <p {...css(styles.secondBody) }>
-                This means that the number of current Vlynt-enabled site users
-                continues to rise with the total available network and computing
-                capacity, providing a constantly improving online experience.
+                With zero risk of implementation, the Vlynt Web Accelerator can
+                begin operating in minutes regardless of location or underlying
+                infrastructure.
               </p>
             </span>
           </Col>
@@ -120,12 +120,9 @@ const Home = enhanceHome(({ styles, ...props }) => {
                 will be delivered faster than ever before.
               </p>
               <p {...css(styles.secondBody) }>
-                The Vlynt Web Accelerator is an out-of-the-box CDN solution that
-                relies on p2p networks to send data that have already been
-                retrieved.
-                This enables you to deliver data from a close source directly
-                to your client, and when more clients retrieve the same data,
-                that content will be delivered faster than ever before.
+                This means that the number of current Vlynt-enabled site users
+                continues to rise with the total available network and computing
+                capacity, providing a constantly improving online experience.
               </p>
             </span>
           </Col>
@@ -302,7 +299,7 @@ export default withStyles(({ color, unit }) => ({
     fontSize: '24px',
     fontWeight: '400'
   },
-  
+
   cardRow: {
     margin: 'auto',
     width: '100%',
