@@ -114,14 +114,14 @@ const Home = enhanceHome(({ styles, ...props }) => {
               <p {...css(styles.secondBody) }>
                 The Vlynt Web Accelerator is an out-of-the-box CDN
                 solution that relies on p2p networks to send data that
-                have already been retrieved. This enables you to deliver
+                has already been retrieved. This enables you to deliver
                 data from a close source directly to your client, and
                 when more clients retrieve the same data, that content
                 will be delivered faster than ever before.
               </p>
               <p {...css(styles.secondBody) }>
                 This means that the number of current Vlynt-enabled site users
-                continues to rise with the total available network and computing
+                continues to rise along with the total available network and computing
                 capacity, providing a constantly improving online experience.
               </p>
             </span>
