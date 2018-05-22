@@ -29,15 +29,15 @@ const enhance = compose(
   }),
   withRouter,
 )
-const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail, 
+const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
   invalidEmail, emptyEmail, validPwd, invalidPwd, emptyPwd, emailValue, pwdValue,
   setEmailValue, setPwdValue, login, setLogin, data, history }) => {
   let logInButton;
   const validForm = (stateEmail === 'valid') && (statePwd === 'valid');
   if (validForm)
     logInButton = (
-      <button 
-        type="button" 
+      <button
+        type="button"
         {...css(styles.logInButton)}
         onClick={() => setLogin(true)}
       >
@@ -46,7 +46,7 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
     )
   else
     logInButton = (
-      <button 
+      <button
         type="button"
         {...css(styles.logInButtonDisabled)}
         disabled
@@ -55,24 +55,28 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
       </button>
     )
 
-  if (data && data.loading)
-    return (
-      <div {...css(styles.container)}>
-        <Spin size="large" /> 
-      </div>
-  )
+  if (data && typeof data.error !== 'undefined') {
+      console.log(data.error);
+  } else {
+    if (data && data.loading)
+      return (
+        <div {...css(styles.container)}>
+          <Spin size="large" />
+        </div>
+    )
 
-  if (data && data.signIn.errors)
-    console.log(data.signIn.errors);
+    if (data && data.signIn && data.signIn.errors)
+      console.log(data.signIn.errors);
 
-  if (data && !data.signIn.errors) {
-    localStorage.setItem('token', data.signIn.jwt);
-    history.push('/welcome')
+    if (data && !data.signIn.errors) {
+      localStorage.setItem('token', data.signIn.jwt);
+      history.push('/welcome')
+    }
   }
 
   return (
     <div {...css(styles.container)}>
-      <InputV 
+      <InputV
         placeholder="Email"
         validate={(x) => x.length > 3}
         state={stateEmail}
@@ -82,7 +86,7 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
         setValue={setEmailValue}
         {...css(styles.input)}
       />
-      <InputV 
+      <InputV
         placeholder="Password"
         pwd={true}
         validate={(x) => x.length > 3}
