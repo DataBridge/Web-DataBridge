@@ -103,7 +103,6 @@ const title = {
 }
 
 export default  withStyles(({ color, unit, display }) => {
-  console.log(display);
   return ({
   fieldset: {
     display: display,

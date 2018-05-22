@@ -5,6 +5,7 @@ import Tabs from 'components/tabs/Tabs';
 import WebsiteZone from './WebsiteZone';
 import Domains from './Domains';
 import Stats from './Stats';
+import Patterns from './Patterns';
 
 const enhance = compose(
   withState('stateWebsite', 'setStateWebsite', null),
@@ -32,7 +33,7 @@ const AdminPanel = enhance(({ styles, ...props }) => {
             titles={['DOMAINS', 'PATTERNS', 'STATISTICS', 'MAP']}
             comps={[
               <Domains websiteId={props.stateWebsite}/>,
-              <span> Coming Soon </span>,
+              <Patterns websiteId={props.stateWebsite}/>,
               <Stats websiteId={props.stateWebsite}/>,
               <span> Coming Soon </span>,
             ]}

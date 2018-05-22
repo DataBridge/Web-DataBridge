@@ -1,0 +1,8 @@
+mutation enableDomain($id: Int!){
+  enablePattern(id: $id){
+    pattern {
+      id
+      enabled 
+    }
+  }
+}
