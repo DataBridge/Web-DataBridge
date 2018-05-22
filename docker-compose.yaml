@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  #
+  # Runs the mbot-api server
+  #
+  vlynt-db:
+    restart: always
+    image: mysql
+    environment:
+        MYSQL_DATABASE: databridge
+        MYSQL_ROOT_PASSWORD: my-secret-pw
+    ports:
+        - "3306:3306"
+    networks:
+      0vlynt-db-network:
+
+networks:
+  0vlynt-db-network:
+    driver: bridge
