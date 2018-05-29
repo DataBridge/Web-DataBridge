@@ -137,7 +137,7 @@ const Header = enhanceHeader(({ styles, ...props }) => {
               <span>
                 Contact us. <br/>
               <hr/>
-                julian.klug@vlynt.com
+                <a href="mailto:contact.us@vlynt.com?Subject=Hello%20again">contact.us@vlynt.com</a>
               </span>
             )}/> :
           null
