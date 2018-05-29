@@ -9,6 +9,7 @@ import LogIn from './login/LogIn';
 import Welcome from './Welcome';
 import AdminPanel from './adminPanel';
 import Faq from './docs/FAQ'
+import Terms from './docs/TermsAndConditions'
 
 localStorage.clear();
 
@@ -54,6 +55,14 @@ const FaqLayout = () => (
   </div>
 );
 
+const TermsLayout = () => (
+  <div>
+    <Header/>
+    <Terms/>
+    <Footer/>
+  </div>
+);
+
   return (
     <div {...css(styles.theme)}>
       <Route exact path="/" component={HomeLayout}/>
@@ -61,6 +70,7 @@ const FaqLayout = () => (
       <Route path="/welcome" component={WelcomeLayout}/>
       <Route path="/panel" component={PanelLayout}/>
       <Route path="/faq" component={FaqLayout}/>
+      <Route path="/terms" component={TermsLayout}/>
     </div>);
 }
 
