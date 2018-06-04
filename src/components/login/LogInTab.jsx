@@ -70,7 +70,7 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
 
     if (data && !data.signIn.errors) {
       localStorage.setItem('token', data.signIn.jwt);
-      history.push('/welcome')
+      history.push('/panel')
     }
   }
 
@@ -95,6 +95,7 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
         invalid={invalidPwd}
         setValue={setPwdValue}
         empty={emptyPwd}
+        {...css(styles.input)}
       />
       {logInButton}
       <p {...css(styles.terms)}>

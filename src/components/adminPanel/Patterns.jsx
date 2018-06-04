@@ -154,7 +154,7 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
   let body = [];
   if (patternsQuery && !patternsQuery.loading) {
   maxOffset = Math.min((props.stateCurrPage + 1) * props.stateRowsPP,
-                    data.websiteDomains.length);
+                    patternsQuery.websitePatterns.length);
     body = patternsQuery.websitePatterns.map((pattern, i) => {
       const rowStyle = (i % 2) == 0 ? 'rowEven' : 'rowOdd'
       const lastPurge = pattern.lastpurge ? moment(pattern.lastpurge).format('MMM D, YYYY HH:mm ') :
@@ -184,6 +184,24 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
     }).slice(offset, offset + props.stateRowsPP);
   }
 
+  const nextPage = () => {
+    console.log(patternsQuery.websitePatterns.length, offset, offset + props.stateRowsPP)
+    if (patternsQuery && !patternsQuery.loading && (offset + props.stateRowsPP < patternsQuery.websitePatterns.length)) {
+      props.nextPage();
+    }
+  }
+
+  const prevPage = () => {
+    if (props.stateCurrPage > 0) {
+      props.prevPage();
+    }
+  }
+
+  const rowsPP = (value) => {
+    props.setStateCurrPage(0);
+    props.setStateRowsPP(value);
+  }
+
   return (
     <div {...css(styles.container)}>
       <ModalV 
@@ -197,7 +215,7 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
         title="Select Domains"
         visible={props.modalS}
         possibleDomains={props.select.possibleDomains}
-        domainsSelected={props.select.domainsSelected}
+        domainsSelected={props.select.domainsSelected || []}
         onOk={associateDomains}
         onCancel={() => props.hideModS()}
       />
@@ -234,7 +252,7 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
           <Select 
             labelInValue 
             defaultValue={{ key: props.stateRowsPP }} 
-            onChange={value => props.setStateRowsPP(value.key)}
+            onChange={value => rowsPP(value.key)}
             {...css(styles.pageSelect)}
           >
             <Option value={5}> 5 </Option>
@@ -244,14 +262,14 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
           </Select>
         </Col>
         <Col span={4} {...css(styles.colFooter)}>
-          {data && !data.loading ? `${offset+1}-${maxOffset} of 
-          ${data.websiteDomains.length}` : null}
+          {patternsQuery && !patternsQuery.loading ? `${offset+1}-${maxOffset} of 
+          ${patternsQuery.websitePatterns.length}` : null}
         </Col>
         <Col span={4} {...css(styles.colFooter)}>
-          <button onClick={props.prevPage} {...css(styles.pageButton)}> 
+          <button onClick={prevPage} {...css(styles.pageButton)}> 
             {'<'} 
           </button>
-          <button onClick={props.nextPage} {...css(styles.pageButton)}>
+          <button onClick={nextPage} {...css(styles.pageButton)}>
              {'>'}
           </button>
         </Col>

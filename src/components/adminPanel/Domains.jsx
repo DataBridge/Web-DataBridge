@@ -76,6 +76,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
     });
   }
 
+
   const offset = props.stateCurrPage * props.stateRowsPP;
   let maxOffset = null;
   let body = [];
@@ -104,6 +105,23 @@ const Domains = enhance(({ styles, data, ...props }) => {
         </tr>
       )
     }).slice(offset, offset + props.stateRowsPP);
+  }
+
+  const nextPage = () => {
+    if (data && !data.loading && (offset + props.stateRowsPP < data.websiteDomains.length)) {
+      props.nextPage();
+    }
+  }
+
+  const prevPage = () => {
+    if (props.stateCurrPage > 0) {
+      props.prevPage();
+    }
+  }
+
+  const rowsPP = (value) => {
+    props.setStateCurrPage(0);
+    props.setStateRowsPP(value);
   }
 
   return (
@@ -145,7 +163,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
           <Select 
             labelInValue 
             defaultValue={{ key: props.stateRowsPP }} 
-            onChange={value => props.setStateRowsPP(value.key)}
+            onChange={value => rowsPP(value.key)}
             {...css(styles.pageSelect)}
           >
             <Option value={5}> 5 </Option>
@@ -159,10 +177,10 @@ const Domains = enhance(({ styles, data, ...props }) => {
           ${data.websiteDomains.length}` : null}
         </Col>
         <Col span={4} {...css(styles.colFooter)}>
-          <button onClick={props.prevPage} {...css(styles.pageButton)}> 
+          <button onClick={prevPage} {...css(styles.pageButton)}> 
             {'<'} 
           </button>
-          <button onClick={props.nextPage} {...css(styles.pageButton)}>
+          <button onClick={nextPage} {...css(styles.pageButton)}>
              {'>'}
           </button>
         </Col>

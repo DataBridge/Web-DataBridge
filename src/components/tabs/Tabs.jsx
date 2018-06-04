@@ -4,7 +4,7 @@ import { css, withStyles } from 'withStyles';
 import { withState } from 'recompose';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-const enhance = withState('tabIndex', 'setTabIndex', 0);
+const enhance = withState('tabIndex', 'setTabIndex', ({ defaultIdx }) => defaultIdx);
 const TabsBuilder = enhance(({ styles, titles, comps, tabIndex, 
   setTabIndex }) => {
   const tabs = titles.map((t, i) => {
@@ -13,6 +13,7 @@ const TabsBuilder = enhance(({ styles, titles, comps, tabIndex,
     }
     return <Tab key={i} {...css(styles.tab)}> {t} </Tab>
   })
+  console.log(tabIndex)
   const tabPanels = comps.map((c, i) => {
     return ( 
       <TabPanel key={i}>

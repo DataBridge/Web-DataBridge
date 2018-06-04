@@ -39,10 +39,24 @@ const WebsiteZone = enhance(({ styles, data, setValue, webSelect,
     });
   }
 
-  const options = data.myWebsites.map(w => ({
-    value: w.id,
-    label: w.name,
-  }));
+  let options;
+  if (data.myWebsites.length > 0) {
+    options = data.myWebsites.map(w => ({
+      value: w.id,
+      label: w.name,
+    }));
+  } else {
+    options = [
+      {
+        value: null,
+        label: '',
+      },
+      {
+        value: null,
+        label: '',
+      },
+    ]
+  }
   
   if (!webSelect)
     setValue(options[0].value)

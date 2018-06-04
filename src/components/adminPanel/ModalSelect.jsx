@@ -16,17 +16,23 @@ const ModalSelect = enhance(({ styles, visible, title, onOk, onCancel, ...props 
     } else {
       onCancel();
     }
+    props.setValue(null);
+  }
+
+  const cancel = () => {
+    onCancel();
+    props.setValue(null);
   }
 
   return (
     <Modal
-      onCancel={onCancel}
+      onCancel={cancel}
       title={title}
       visible={visible}
       footer={null}
     >
       <div {...css(styles.container)}>
-        <Checkbox.Group style={{ width: '100%' }} onChange={props.setValue} value={props.value ? props.value :  props.domainsSelected.map(x => x.name)}> 
+        <Checkbox.Group style={{ width: '100%' }} onChange={props.setValue} value={props.value ? props.value : props.domainsSelected.map(x => x.name)}>
           {props.possibleDomains.map((domain, i) => (
             <Row key={i}>
               <Checkbox value={domain.name}>{domain.name}</Checkbox>
@@ -40,11 +46,11 @@ const ModalSelect = enhance(({ styles, visible, title, onOk, onCancel, ...props 
           </button>
         </Row>
       </div>
-  </Modal>     
+    </Modal>
   )
 });
 
-export default  withStyles(({ color, unit }) => ({
+export default withStyles(({ color, unit }) => ({
   container: {
     position: 'relative'
   },

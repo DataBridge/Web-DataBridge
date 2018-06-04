@@ -24,7 +24,15 @@ function App({ styles }) {
 const LoginLayout = () => (
   <div>
     <Header/>
-    <LogIn/>
+    <LogIn defaultIdx={0}/>
+{/*     <Footer/> */}
+  </div>
+);
+
+const SignUpLayout = () => (
+  <div>
+    <Header/>
+    <LogIn defaultIdx={1}/>
 {/*     <Footer/> */}
   </div>
 );
@@ -49,6 +57,7 @@ const PanelLayout = () => (
     <div {...css(styles.theme)}>
       <Route exact path="/" component={HomeLayout}/>
       <Route path="/login" component={LoginLayout}/>
+      <Route path="/signup" component={SignUpLayout}/>
       <Route path="/welcome" component={WelcomeLayout}/>
       <Route path="/panel" component={PanelLayout}/>
     </div>);
