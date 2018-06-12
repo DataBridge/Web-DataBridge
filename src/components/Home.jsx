@@ -6,6 +6,7 @@ import lottie from 'lottie-web'
 
 import Card from './cards/Card'
 import EarthAnimation from './animations/EarthAnimation'
+import CompAnimation from './animations/CompAnimation'
 
 function Modal({ styles, text, visible }) {
   const handleClick = e => {
@@ -63,7 +64,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
           </span>
         </Col>
         <Col lg={12} {...css(styles.firstGlobe) }>
-          <EarthAnimation width={750} height={750} {...css(styles.globe) } />
+          <EarthAnimation {...css(styles.globe) } />
         </Col>
       </Row>
 
@@ -90,11 +91,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
             </span>
           </Col>
           <Col lg={12} {...css(styles.secondImg) }>
-            <img
-              src="../../imgs/home/comp.png"
-              alt="computers"
-              {...css(styles.speedComp) }
-            />
+            <CompAnimation/>
           </Col>
         </Row>
 

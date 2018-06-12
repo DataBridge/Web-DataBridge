@@ -10,7 +10,7 @@ const enhance = compose(
     unhover: ({ setStateHover }) => () =>  setStateHover(_ => false),
   }),
 );
-const Animation = enhance(({ styles, src, width, height, ...props }) => {
+const Animation = enhance(({src, width, height, styles, ...props }) => {
     const state = {isStopped: false, isPaused: false};
 
     const defaultOptions = {
@@ -18,23 +18,23 @@ const Animation = enhance(({ styles, src, width, height, ...props }) => {
       autoplay: true,
       animationData: src,
       rendererSettings: {
-        preserveAspectRatio: 'xMidYMid slice'
+        preserveAspectRatio: 'xMidYMid meet'
       }
     };
 
-    if (typeof src === "undefined") {
-      src = "../../imgs/gen/globe.png";
-    }
-
   return (
-    <div>
       <Lottie options={defaultOptions}
         width={width}
         height={height}
         isStopped={state.isStopped}
-        isPaused={state.isPaused}/>
-    </div>
+        isPaused={state.isPaused}
+        styles={styles.Lottie}
+        />
   )
 });
 
-export default  withStyles(({ color, unit, display }) => ({}))(Animation)
+export default  withStyles(({ color, unit, display }) => ({
+  Lottie: {
+    outline: '0'
+  }
+}))(Animation)
