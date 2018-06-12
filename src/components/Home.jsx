@@ -2,9 +2,10 @@ import React from 'react';
 import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col } from 'antd';
+import lottie from 'lottie-web'
 
 import Card from './cards/Card'
-
+import EarthAnimation from './animations/EarthAnimation'
 
 function Modal({ styles, text, visible }) {
   const handleClick = e => {
@@ -62,7 +63,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
           </span>
         </Col>
         <Col lg={12} {...css(styles.firstGlobe) }>
-          <img src="../../imgs/gen/globe.png" alt="globe" {...css(styles.globe) } />
+          <EarthAnimation width={750} height={750} {...css(styles.globe) } />
         </Col>
       </Row>
 
