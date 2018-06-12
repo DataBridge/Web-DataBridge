@@ -3,7 +3,9 @@ import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col } from 'antd';
 
-
+import Card from './cards/Card'
+import EarthAnimation from './animations/EarthAnimation'
+import CompAnimation from './animations/CompAnimation'
 
 function Modal({ styles, text, visible }) {
   const handleClick = e => {
@@ -21,52 +23,6 @@ function Modal({ styles, text, visible }) {
   )
 }
 
-const enhance = compose(
-  withState('stateHover', 'setStateHover', false),
-  withHandlers({
-    hover: ({ setStateHover }) => () => setStateHover(_ => true),
-    unhover: ({ setStateHover }) => () =>  setStateHover(_ => false),
-  }),
-);
-const Card = enhance(({ styles, title, body, imgPath, ...props }) => {
-  let cssStyle;
-  let img;
-  if (props.stateHover) {
-    cssStyle = 'cardHover';
-    img = null
-  } else {
-    cssStyle = 'card';
-    img = (
-        <img
-          src={imgPath}
-          alt="card"
-          {...css(styles.cardImg) }
-        />
-    );
-  }
-  return (
-    <Col
-      lg={8} md={12}
-      {...css(styles.cardContainer)}
-    >
-      <div
-        {...css(styles[cssStyle])}
-        onMouseEnter={props.hover}
-        onMouseLeave={props.unhover}
-      >
-        {img}
-        <p {...css(styles.cardTitle) }>
-          {title}
-        </p>
-        <p {...css(styles.cardBody) }>
-          {body}
-        </p>
-      </div>
-    </Col>
-  )
-});
-
-
 const enhanceHome = compose(
   withState('contactVisible', 'setContact', false),
 );
@@ -81,7 +37,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
               Web Accelerator
             </p>
             <p {...css(styles.firstBody) }>
-              Cut your client page land time <br />
+              Cut your content delivery costs <br />
               by up to 60% with a single line of code
             </p>
             <button
@@ -98,7 +54,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
                 <span>
                 Contact us. <br/>
                 <hr/>
-                julian.klug@vlynt.com
+                  <a href="mailto:contact.us@vlynt.com?Subject=Hello%20again">contact.us@vlynt.com</a>
                 </span>
               )}
             /> :
@@ -106,7 +62,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
           </span>
         </Col>
         <Col lg={12} {...css(styles.firstGlobe) }>
-          <img src="../../imgs/gen/globe.png" alt="globe" {...css(styles.globe) } />
+          <EarthAnimation {...css(styles.globe) } />
         </Col>
       </Row>
 
@@ -120,24 +76,20 @@ const Home = enhanceHome(({ styles, ...props }) => {
               </p>
               <p {...css(styles.secondBody) }>
                 Vlynt removes CDN bottlenecks by enabling your users to load
-                content directly from the nearest server or from another user,
+                content directly from another user,
                 with complete transparency and on any device. As your user
                 base grows, so does your reach. We are effectively building a
                 faster Internet on top of the older CDN model.
               </p>
               <p {...css(styles.secondBody) }>
-                This means that the number of current Vlynt-enabled site users
-                continues to rise with the total available network and computing
-                capacity, providing a constantly improving online experience.
+                With zero risk of implementation, the Vlynt Web Accelerator can
+                begin operating in minutes regardless of location or underlying
+                infrastructure.
               </p>
             </span>
           </Col>
           <Col lg={12} {...css(styles.secondImg) }>
-            <img
-              src="../../imgs/home/comp.png"
-              alt="computers"
-              {...css(styles.speedComp) }
-            />
+            <CompAnimation/>
           </Col>
         </Row>
 
@@ -158,18 +110,15 @@ const Home = enhanceHome(({ styles, ...props }) => {
               <p {...css(styles.secondBody) }>
                 The Vlynt Web Accelerator is an out-of-the-box CDN
                 solution that relies on p2p networks to send data that
-                have already been retrieved. This enables you to deliver
+                has already been retrieved. This enables you to deliver
                 data from a close source directly to your client, and
                 when more clients retrieve the same data, that content
                 will be delivered faster than ever before.
               </p>
               <p {...css(styles.secondBody) }>
-                The Vlynt Web Accelerator is an out-of-the-box CDN solution that
-                relies on p2p networks to send data that have already been
-                retrieved.
-                This enables you to deliver data from a close source directly
-                to your client, and when more clients retrieve the same data,
-                that content will be delivered faster than ever before.
+                This means that the number of current Vlynt-enabled site users
+                continues to rise along with the total available network and computing
+                capacity, providing a constantly improving online experience.
               </p>
             </span>
           </Col>
@@ -346,54 +295,10 @@ export default withStyles(({ color, unit }) => ({
     fontSize: '24px',
     fontWeight: '400'
   },
+
   cardRow: {
     margin: 'auto',
     width: '100%',
     maxWidth: '1200px',
-  },
-  cardContainer: {
-    textAlign: 'center',
-  },
-  card: {
-    borderRadius: '10px',
-    width: '380px',
-    height: '400px',
-    boxShadow: '0 0 20px 2px rgba(0, 0, 0, .2)',
-    margin: 'auto',
-    marginTop: '30px',
-    marginBottom: '30px',
-    color: color.tabBlue,
-    paddingTop: '50px',
-    paddingRight: '50px',
-    paddingLeft: '50px',
-  },
-  cardHover: {
-    borderRadius: '10px',
-    width: '380px',
-    height: '400px',
-    boxShadow: '0 0 20px 10px rgba(0, 0, 0, .2)',
-    margin: 'auto',
-    marginTop: '30px',
-    marginBottom: '30px',
-    color: 'white',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: color.darkPrimary,
-    paddingRight: '50px',
-    paddingLeft: '50px',
-  },
-  cardImg: {
-    width: '3.75cm',
-    height: '3.95cm',
-  },
-  cardTitle: {
-    marginTop: '20px',
-    fontSize: '24px',
-  },
-  cardBody: {
-    marginTop: '-20px',
-    fontSize: '14px',
   },
 }))(Home)

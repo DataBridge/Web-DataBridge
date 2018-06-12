@@ -18,6 +18,13 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'source-map',
+ devServer: {
+
+    compress: true,
+
+    disableHostCheck: true,   // That solved it
+
+ } ,   
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
