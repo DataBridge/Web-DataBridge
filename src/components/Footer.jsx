@@ -8,38 +8,38 @@ function Menu({ styles }) {
   return (
     <ul {...css(styles.mainMenuUl)}>
       <li {...css(styles.mainMenuLi)}>
-        <Link to="/solutions" {...css(styles.link)}> 
-          Solutions 
+        <Link to="/solutions" {...css(styles.link)}>
+          Solutions
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}>
-        <Link to="/features" {...css(styles.link)}> 
-          Features 
+        <Link to="/features" {...css(styles.link)}>
+          Features
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}>
-        <Link to="/faq" {...css(styles.link)}> 
-          FAQ 
+        <Link to="/faq" {...css(styles.link)}>
+          FAQ
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}>
-        <Link to="/pricing" {...css(styles.link)}> 
-          Pricing 
+        <Link to="/pricing" {...css(styles.link)}>
+          Pricing
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}>
-        <Link to="/studies" {...css(styles.link)}> 
-          Case studies 
+        <Link to="/studies" {...css(styles.link)}>
+          Case studies
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}>
-        <Link to="/blog" {...css(styles.link)}> 
-          Blog 
+        <Link to="/blog" {...css(styles.link)}>
+          Blog
         </Link>
       </li>
       <li {...css(styles.mainMenuLi)}>
-        <Link to="/contact" {...css(styles.link)}> 
-          Contact 
+        <Link to="/contact" {...css(styles.link)}>
+          Contact
         </Link>
       </li>
     </ul>
@@ -49,9 +49,9 @@ function Menu({ styles }) {
 function Footer({ styles, text}) {
   return (
     <Row {...css(styles.container)}>
-        <Row>
+{/*         <Row>
           <Col span={2}>
-            <img 
+            <img
               src="../../imgs/logos/logo_footer.png"
               alt="log_footer"
               {...css(styles.logo)}
@@ -64,43 +64,43 @@ function Footer({ styles, text}) {
           </Col>
         </Row>
 
-        <hr {...css(styles.sep)}/>
+        <hr {...css(styles.sep)}/> */}
 
         <Row {...css(styles.secondRow)}>
           <Col span={2} {...css(styles.at)}>
             @ Vlynt 2018
           </Col>
-          <Col span={3}>
-            <Link to="/terms" {...css(styles.terms)}> 
-              Privacy & Terms 
+           <Col span={3}>
+            <Link to="/terms" {...css(styles.terms)}>
+              Terms & Conditions
             </Link>
           </Col>
-          <Col span={15}>
+    {/*      <Col span={15}>
           </Col>
           <Col span={2} {...css(styles.at)}>
             Follow us:
           </Col>
           <Col span={2} {...css(styles.socialContainer)}>
-            <img 
+            <img
               src="../../imgs/icons/facebook.png"
               alt="facebook"
               {...css(styles.social)}
             />
-            <img 
+            <img
               src="../../imgs/icons/twitter.png"
               alt="twitter"
               {...css(styles.social)}
             />
-            <img 
+            <img
               src="../../imgs/icons/instagram.png"
               alt="instagram"
               {...css(styles.social)}
             />
-          </Col>
+          </Col> */}
         </Row>
     </Row>
   )
-} 
+}
 
 export default  withStyles(({ color, unit }) => ({
   container: {
