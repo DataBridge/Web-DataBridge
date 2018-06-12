@@ -23,7 +23,6 @@ function Modal({ styles, text, visible }) {
   )
 }
 
-
 const enhanceHome = compose(
   withState('contactVisible', 'setContact', false),
 );

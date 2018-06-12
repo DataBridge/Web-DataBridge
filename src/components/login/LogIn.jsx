@@ -8,12 +8,13 @@ import SignUpTab from './SignUpTab';
 import LoginQuery from 'data/queries/LoginQuery';
 
 
-function LogIn ({ styles }) {
+function LogIn ({ styles, defaultIdx }) {
   return (
     <div {...css(styles.container)}>
       <img src="../../imgs/logos/logo_rgb.png" alt="log_rgb" {...css(styles.logo)}/>
       <Tabs 
         titles={['LOGIN', 'SIGN UP']}
+        defaultIdx={defaultIdx}
         comps={[
           <LogInTab/>,
           <SignUpTab/>,

@@ -1,0 +1,14 @@
+mutation associateDomains($input: CreatePatternDomainAssocInput!){
+    associateDomains(input: $input){
+        pattern {
+            id
+            name
+            enabled
+            lastpurge
+            domains {
+                id
+                name
+            }
+        }
+    }
+}

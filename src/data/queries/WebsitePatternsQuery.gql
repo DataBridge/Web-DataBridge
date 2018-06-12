@@ -1,0 +1,12 @@
+query websitePatterns($websiteId: Int!) {
+    websitePatterns(id: $websiteId) {
+        id
+        name
+        enabled
+        lastpurge
+        domains {
+            id
+            name
+        }
+    }
+}

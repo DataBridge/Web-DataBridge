@@ -1,6 +1,8 @@
 query websiteDomains($websiteId: Int!) {
     websiteDomains(id: $websiteId) {
+        id
         name
         verified
+        enabled
     }
 }

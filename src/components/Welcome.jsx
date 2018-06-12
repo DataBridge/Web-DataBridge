@@ -4,7 +4,6 @@ import { compose, withState, withHandlers } from 'recompose';
 import InputV from 'components/input/InputV';
 import Primary from 'components/buttons/Primary';
 
-
 const enhance = compose(
   withState('stateSite', 'setStateSite', 'empty'),
   withState('siteValue', 'setSiteValue', null),
@@ -77,4 +76,5 @@ export default  withStyles(({ color, unit }) => ({
       boxShadow: '0 0 20px 10px rgba(0, 0, 0, .2)',
     },
   }))(Welcome)
+
 

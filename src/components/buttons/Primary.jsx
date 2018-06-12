@@ -2,10 +2,11 @@ import React from 'react';
 import { css, withStyles } from 'withStyles';
 import { branch } from 'recompose';
 
-function Primary({ styles, disabled, text }) {
+function Primary({ styles, disabled, text, onClick }) {
   return (
       <button
         type="button"
+        onClick={onClick}
         disabled={disabled}
         {...(disabled ? css(styles.disabled) : css(styles.default))}
       > 

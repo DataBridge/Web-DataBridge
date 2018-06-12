@@ -32,13 +32,14 @@ export default withStyles(({ color, unit }) => ({
     display: 'inline-block',
   },
   icon: {
-    width: '80px',
+    width: '60px',
     height: '50px',
     border: '1px solid',
     borderColor: color.lightGrey,
-    backgroundColor: color.lightGrey,
+    backgroundColor: 'black',
     borderRadius: '25px',
     position: 'absolute',
     right: 0,
+    opacity: 0.7,
   },
 }))(Dropdown)

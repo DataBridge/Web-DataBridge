@@ -1,0 +1,8 @@
+mutation enableDomain($id: Int!){
+  enableDomain(id: $id){
+    domain {
+      id
+      enabled 
+    }
+  }
+}

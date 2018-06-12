@@ -1,0 +1,8 @@
+query websitePricings($id: Int!) {
+    websitePricings(id: $id) {
+        id
+        price
+        threshold
+    }
+}
+

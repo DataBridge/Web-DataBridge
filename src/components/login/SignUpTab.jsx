@@ -1,10 +1,14 @@
 import React from 'react';
 import { withApollo } from 'react-apollo';
+import { graphql } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import InputV from 'components/input/InputV';
 import InfoTitle from './InfoTitle';
-import LoginQuery from 'data/queries/LoginQuery';
+import CreateCustomerMutation from 'data/mutations/CreateCustomerMutation';
+import { withRouter } from 'react-router-dom'
+
+
 
 const enhance = compose(
   withState('stateEmail', 'setStateEmail', 'empty'),
@@ -13,49 +17,79 @@ const enhance = compose(
   withState('stateFn', 'setStateFn', 'empty'),
   withState('stateLn', 'setStateLn', 'empty'),
   withState('stateComp', 'setStateComp', 'empty'),
+  withState('emailValue', 'setEmailValue', null),
+  withState('pwdValue', 'setPwdValue', null),
+  withState('cpwdValue', 'setCPwdValue', null),
+  withState('fnValue', 'setFnValue', null),
+  withState('lnValue', 'setLnValue', null),
+  withState('compValue', 'setCompValue', null),
   withHandlers({
     validEmail: ({ setStateEmail }) => () => setStateEmail(_ => 'valid'),
-    invalidEmail: ({ setStateEmail }) => () =>  setStateEmail(_ => 'invalid'),
+    invalidEmail: ({ setStateEmail }) => () => setStateEmail(_ => 'invalid'),
     emptyEmail: ({ setStateEmail }) => () => setStateEmail(_ => 'empty'),
 
     validPwd: ({ setStatePwd }) => () => setStatePwd(_ => 'valid'),
-    invalidPwd: ({ setStatePwd }) => () =>  setStatePwd(_ => 'invalid'),
+    invalidPwd: ({ setStatePwd }) => () => setStatePwd(_ => 'invalid'),
     emptyPwd: ({ setStatePwd }) => () => setStatePwd(_ => 'empty'),
-    
+
     validCPwd: ({ setStateCPwd }) => () => setStateCPwd(_ => 'valid'),
-    invalidCPwd: ({ setStateCPwd }) => () =>  setStateCPwd(_ => 'invalid'),
+    invalidCPwd: ({ setStateCPwd }) => () => setStateCPwd(_ => 'invalid'),
     emptyCPwd: ({ setStateCPwd }) => () => setStateCPwd(_ => 'empty'),
 
     validFn: ({ setStateFn }) => () => setStateFn(_ => 'valid'),
-    invalidFn: ({ setStateFn }) => () =>  setStateFn(_ => 'invalid'),
+    invalidFn: ({ setStateFn }) => () => setStateFn(_ => 'invalid'),
     emptyFn: ({ setStateFn }) => () => setStateFn(_ => 'empty'),
 
     validLn: ({ setStateLn }) => () => setStateLn(_ => 'valid'),
-    invalidLn: ({ setStateLn }) => () =>  setStateLn(_ => 'invalid'),
+    invalidLn: ({ setStateLn }) => () => setStateLn(_ => 'invalid'),
     emptyLn: ({ setStateLn }) => () => setStateLn(_ => 'empty'),
 
     validComp: ({ setStateComp }) => () => setStateComp(_ => 'valid'),
-    invalidComp: ({ setStateComp }) => () =>  setStateComp(_ => 'invalid'),
+    invalidComp: ({ setStateComp }) => () => setStateComp(_ => 'invalid'),
     emptyComp: ({ setStateComp }) => () => setStateComp(_ => 'empty')
-  })
+  }),
+  graphql(CreateCustomerMutation, { name: 'createCustomer' },
+  ),
+  withRouter,
 )
 const SignUpTab = enhance(({ styles, children, stateEmail, statePwd, stateCPwd,
-  stateFn, stateLn, stateComp, validEmail, 
+  stateFn, stateLn, stateComp, validEmail,
   invalidEmail, emptyEmail, validPwd, invalidPwd, emptyPwd,
   validCPwd, invalidCPwd, emptyCPwd, validFn, invalidFn, emptyFn,
-  validLn, invalidLn, emptyLn,validComp, invalidComp, emptyComp }) => {
+  validLn, invalidLn, emptyLn, validComp, invalidComp, emptyComp, ...props }) => {
+
+  const createCustomer = () => {
+    props.createCustomer({
+      variables: {
+        input: {
+          email: props.emailValue,
+          password: props.pwdValue,
+        }
+      },
+    });
+    props.history.push('/login')
+  }
+
   let logInButton;
-  if ((stateEmail === 'valid') && (statePwd === 'valid') && 
+  console.log(props.createCustomer)
+
+
+
+  if ((stateEmail === 'valid') && (statePwd === 'valid') &&
     (stateCPwd === 'valid') && (stateFn === 'valid') &&
     (stateLn === 'valid') && (stateComp === 'valid'))
     logInButton = (
-      <button type="button" {...css(styles.logInButton)}>
+      <button 
+        type="button" 
+        {...css(styles.logInButton)}
+        onClick={createCustomer}
+      >
         SIGN UP
       </button>
     )
   else
     logInButton = (
-      <button 
+      <button
         type="button"
         {...css(styles.logInButtonDisabled)}
         disabled
@@ -66,56 +100,67 @@ const SignUpTab = enhance(({ styles, children, stateEmail, statePwd, stateCPwd,
 
   return (
     <div {...css(styles.container)}>
-      <InfoTitle text="ACCOUNT INFO"/>
-      <InputV 
+      <InfoTitle text="ACCOUNT INFO" />
+      <InputV
         placeholder="Email"
         validate={(x) => x.length > 3}
         state={stateEmail}
         valid={validEmail}
         invalid={invalidEmail}
         empty={emptyEmail}
+        setValue={props.setEmailValue}
         {...css(styles.input)}
       />
-      <InputV 
+      <InputV
         placeholder="Password"
         validate={(x) => x.length > 3}
         state={statePwd}
         valid={validPwd}
         invalid={invalidPwd}
         empty={emptyPwd}
+        setValue={props.setPwdValue}
+        {...css(styles.input)}
       />
-      <InputV 
-        placeholder="Confrim Password"
+      <InputV
+        placeholder="Confirm Password"
         validate={(x) => x.length > 3}
         state={stateCPwd}
         valid={validCPwd}
         invalid={invalidCPwd}
         empty={emptyCPwd}
+        setValue={props.setCPwdValue}
+        {...css(styles.input)}
       />
-      <InfoTitle text="PERSONAL INFO"/>
-      <InputV 
+      <InfoTitle text="PERSONAL INFO" />
+      <InputV
         placeholder="First Name"
         validate={(x) => x.length > 3}
         state={stateFn}
         valid={validFn}
         invalid={invalidFn}
         empty={emptyFn}
+        setValue={props.setFnValue}
+        {...css(styles.input)}
       />
-      <InputV 
+      <InputV
         placeholder="Last Name"
         validate={(x) => x.length > 3}
         state={stateLn}
         valid={validLn}
         invalid={invalidLn}
         empty={emptyLn}
+        setValue={props.setLnValue}
+        {...css(styles.input)}
       />
-      <InputV 
+      <InputV
         placeholder="Company"
         validate={(x) => x.length > 3}
         state={stateComp}
         valid={validComp}
         invalid={invalidComp}
         empty={emptyComp}
+        setValue={props.setCompValue}
+        {...css(styles.input)}
       />
       {logInButton}
       <p {...css(styles.terms)}>
@@ -137,7 +182,7 @@ const logInButton = {
   outline: 'none',
 }
 
-export default  withStyles(({ color, unit }) => ({
+export default withStyles(({ color, unit }) => ({
   container: {
     paddingTop: '10px',
     textAlign: 'center',
@@ -155,4 +200,4 @@ export default  withStyles(({ color, unit }) => ({
     backgroundColor: color.lightGrey,
     ...logInButton,
   },
-  }))(SignUpTab)
+}))(SignUpTab)

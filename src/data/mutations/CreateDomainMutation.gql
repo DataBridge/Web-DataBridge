@@ -1,0 +1,10 @@
+mutation createDomain($input: CreateDomainInput!){
+  createDomain(input: $input){
+    domain {
+      id
+      name
+      verified
+      enabled
+    }
+  }
+}

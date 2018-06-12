@@ -4,6 +4,8 @@ import { compose, withState, withHandlers } from 'recompose';
 import Tabs from 'components/tabs/Tabs';
 import WebsiteZone from './WebsiteZone';
 import Domains from './Domains';
+import Stats from './Stats';
+import Patterns from './Patterns';
 
 const enhance = compose(
   withState('stateWebsite', 'setStateWebsite', null),
@@ -12,6 +14,10 @@ const enhance = compose(
   }),
 );
 const AdminPanel = enhance(({ styles, ...props }) => {
+  if (props.stateWebsite) {
+    console.log('AAAAAA')
+    console.log(props.stateWebsite)
+  }
   return (
     <div {...css(styles.container)}>
       <div {...css(styles.head)}>
@@ -19,27 +25,36 @@ const AdminPanel = enhance(({ styles, ...props }) => {
       </div>
 
       <div {...css(styles.website)}>
-        <WebsiteZone setValue={props.setStateWebsite}/>
+        <WebsiteZone
+          setValue={props.setStateWebsite}
+          webSelect={props.stateWebsite}
+        />
       </div>
 
       <div {...css(styles.tabsBack)}>
-        <div {...css(styles.tabsContainer)}>
-          <Tabs 
-            titles={['DOMAINS', 'PATTERNS', 'STATISTICS', 'MAP']}
-            comps={[
-              <Domains websiteId={props.stateWebsite}/>,
-              <span> xxxx </span>,
-              <span> yyyy </span>,
-              <span> djakdi </span>,
-            ]}
-          />
-        </div>
+        {
+          props.stateWebsite ? (
+            <div {...css(styles.tabsContainer)}>
+              <Tabs
+                titles={['DOMAINS', 'PATTERNS', 'STATISTICS', 'MAP']}
+                defaultIdx={0}
+                comps={[
+                  <Domains websiteId={props.stateWebsite} />,
+                  <Patterns websiteId={props.stateWebsite} />,
+                  <Stats websiteId={props.stateWebsite} />,
+                  <span> Coming Soon </span>,
+                ]}
+              />
+            </div>
+
+          ) : <div/>
+        }
       </div>
     </div>
   )
 });
 
-export default  withStyles(({ color, unit }) => ({
+export default withStyles(({ color, unit }) => ({
   container: {
   },
   website: {

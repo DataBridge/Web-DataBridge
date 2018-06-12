@@ -2,12 +2,13 @@ import React from 'react';
 import { css, withStyles } from 'withStyles';
 import { branch } from 'recompose';
 
-function Secondary({ styles, disabled, text }) {
+function Secondary({ styles, disabled, text, onClick }) {
   return (
     <div {...(disabled ? css(styles.containerDisabled) : css(styles.container))}>
       <button
         type="button"
         disabled={disabled}
+        onClick={onClick}
         {...(disabled ? css(styles.disabled) : css(styles.default))}
       > 
         {text}

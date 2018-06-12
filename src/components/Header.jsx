@@ -1,4 +1,5 @@
 import React from 'react';
+import { withApollo } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import { graphql } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
@@ -47,21 +48,28 @@ const enhance = compose(
       skip: !localStorage.getItem('token'),
     })
   }),
+  withApollo,
 );
-const CustomerMenu = enhance(({ styles, data }) => {
+const CustomerMenu = enhance(({ styles, data, client }) => {
   let Comp;
+  const handleLogout = () => {
+    client.resetStore();
+    localStorage.clear();
+  }
   if (data && data.me)
     Comp = (
     <ul {...css(styles.mainMenuUl)}>
       <li {...css(styles.mainMenuLi)}> Hi {data.me.email} !</li>
-      <li {...css(styles.mainMenuLi)}> Your Account </li>
-      <li {...css(styles.mainMenuLi)}>
-        <Link to="/panel">
+{/*       <li {...css(styles.mainMenuLi)}> Your Account </li> */}
+      <li {...css(styles.mainMenuLi)}> 
+        <Link to="/panel" {...css(styles.link)}> 
           Admin Panel
         </Link>
       </li>
-      <li {...css(styles.mainMenuLi)}>
-        LOG OUT
+      <li {...css(styles.mainMenuLi)}> 
+        <Link to="/" onClick={handleLogout} {...css(styles.signup)}> 
+          LOG OUT
+        </Link>
       </li>
     </ul>
 
@@ -100,7 +108,7 @@ const Header = enhanceHeader(({ styles, ...props }) => {
   const Menu = localStorage.getItem('token') ?
     (
       <span>
-        <Col span={20} {...css(styles.colMainMenu)}>
+        <Col span={20} {...css(styles.colMainMenuSpe)}>
           <MenuSpe styles={styles} />
         </Col>
       </span>
@@ -149,9 +157,9 @@ const Header = enhanceHeader(({ styles, ...props }) => {
   return (
     <Row {...css(styles.container)}>
       <Col span={4} {...css(styles.colLogo)}>
-        <Link to="/">
-          <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
-        </Link>
+      <Link to="/">
+        <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
+      </Link>
       </Col>
       {temporarayMenu}
     </Row>
@@ -196,6 +204,10 @@ export default  withStyles(({ color, unit }) => ({
     textAlign: 'center',
     paddingTop: '25px',
   },
+  colMainMenuSpe: {
+    textAlign: 'right',
+    paddingTop: '25px',
+  }, 
   colLogo: {
     paddingTop: '10px',
     textAlign: 'center',

@@ -1,0 +1,14 @@
+mutation createPattern($input: CreatePatternInput!){
+    createPattern(input: $input){
+        pattern {
+            id
+            name
+            enabled
+            lastpurge
+            domains {
+                id
+                name
+            }
+        }
+    }
+}

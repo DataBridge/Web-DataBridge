@@ -5,42 +5,85 @@ import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col } from 'antd';
 import Dropdown from 'react-dropdown'
 import Primary from 'components/buttons/Primary';
+import ModalV from './ModalV';
 import MyWebsitesQuery from 'data/queries/MyWebsitesQuery';
+import CreateWebsiteMutation from 'data/mutations/CreateWebsiteMutation';
 import 'withStyles/dropdownStyle.css';
 
 const enhance = compose(
+  withState('modalWeb', 'setModalWeb', false),
+  withHandlers({
+    showModWeb: ({ setModalWeb }) => () => setModalWeb(_ => true),
+    hideModWeb: ({ setModalWeb }) => () => setModalWeb(_ => false),
+  }),
   graphql(MyWebsitesQuery, {
     options: () => ({
       skip: !localStorage.getItem('token'),
     })
   }),
+  graphql(CreateWebsiteMutation, { name: 'createWebsite' }),
 );
-const WebsiteZone = enhance(({ styles, data, setValue}) => {
+const WebsiteZone = enhance(({ styles, data, setValue, webSelect, 
+  ...props }) => {
   if (data.loading)
     return <Spin size="large" /> 
 
-  const options = data.myWebsites.map(w => ({
-    value: w.id,
-    label: w.name,
-  }));
+  const createWebsite = (name) => () => {
+     props.createWebsite({
+      variables: {
+        input: {
+          name,
+        }
+      },
+      refetchQueries:['myWebsites'],
+    });
+  }
+
+  let options;
+  if (data.myWebsites.length > 0) {
+    options = data.myWebsites.map(w => ({
+      value: w.id,
+      label: w.name,
+    }));
+  } else {
+    options = [
+      {
+        value: null,
+        label: '',
+      },
+      {
+        value: null,
+        label: '',
+      },
+    ]
+  }
+  
+  if (!webSelect)
+    setValue(options[0].value)
 
   return (
     <Row {...css(styles.container)}>
+      <ModalV 
+        title="New Website"
+        placeholder="Website"
+        visible={props.modalWeb}
+        onOk={createWebsite}
+        onCancel={props.hideModWeb}
+      />
       <Col span={2} {...css(styles.text)}>
         Website: 
       </Col>
-      <Col span={15}>
+      <Col span={14}>
         <Dropdown 
           options={options} 
-          value={"Select a website"} placeholder="Select an option"
+          value={options[0].label} placeholder="Select an option"
           onChange={({ value }) => setValue(value)}
         />
       </Col>
-      <Col span={5}>
-        <Primary text="ADD NEW"/>
+      <Col span={7}>
+        <Primary text="ADD NEW" onClick={props.showModWeb}/>
       </Col>
-      <Col span={2}>
-        fa
+      <Col span={1}>
       </Col>
     </Row>
   )
