@@ -5,7 +5,7 @@ import * as earthAnimationData from '../../../imgs/animations/earth_loop.json';
 
 const EarthAnimation = ({ width, height, styles }) => {
   const alt = '../../imgs/gen/globe.png';
-  console.log(styles)
+
   return (
     <div {...css(styles.animation) }>
       <Animation src={earthAnimationData} width={width} height={height} style={styles.animation}/>
