@@ -2,7 +2,6 @@ import React from 'react';
 import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col } from 'antd';
-import lottie from 'lottie-web'
 
 import Card from './cards/Card'
 import EarthAnimation from './animations/EarthAnimation'
