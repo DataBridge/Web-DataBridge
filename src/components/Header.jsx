@@ -61,13 +61,13 @@ const CustomerMenu = enhance(({ styles, data, client }) => {
     <ul {...css(styles.mainMenuUl)}>
       <li {...css(styles.mainMenuLi)}> Hi {data.me.email} !</li>
 {/*       <li {...css(styles.mainMenuLi)}> Your Account </li> */}
-      <li {...css(styles.mainMenuLi)}> 
-        <Link to="/panel" {...css(styles.link)}> 
+      <li {...css(styles.mainMenuLi)}>
+        <Link to="/panel" {...css(styles.link)}>
           Admin Panel
         </Link>
       </li>
-      <li {...css(styles.mainMenuLi)}> 
-        <Link to="/" onClick={handleLogout} {...css(styles.signup)}> 
+      <li {...css(styles.mainMenuLi)}>
+        <Link to="/" onClick={handleLogout} {...css(styles.signup)}>
           LOG OUT
         </Link>
       </li>
@@ -86,7 +86,36 @@ const CustomerMenu = enhance(({ styles, data, client }) => {
   )
 })
 
-const MainMenu = ({ styles }) => {
+const enhanceContact = compose(
+  withState('contactVisible', 'setContact', false),
+);
+const ContactButton = enhanceContact(({ styles, ...props }) => {
+  return (
+    <div>
+      <button
+        {...css(styles.contactButton)}
+        onClick={_ => props.setContact(true)}
+      >
+        CONTACT
+      </button>
+      {props.contactVisible ?
+        <Modal
+          styles={styles}
+          visible={props.setContact}
+          text={(
+            <span>
+              Contact us. <br/>
+            <hr/>
+              <a href="mailto:contact.us@vlynt.com?Subject=Hello%20again">contact.us@vlynt.com</a>
+            </span>
+          )}/> :
+        null
+      }
+  </div>
+  )
+});
+
+const FullMenu = ({ styles }) => {
   return (
     <ul {...css(styles.mainMenuUl)}>
       <li {...css(styles.mainMenuLi)}> Solutions </li>
@@ -101,7 +130,7 @@ const MainMenu = ({ styles }) => {
 };
 
 const enhanceHeader = compose(
-  withState('contactVisible', 'setContact', false),
+  withState(),
 );
 const Header = enhanceHeader(({ styles, ...props }) => {
   const MenuSpe = localStorage.getItem('token') ? CustomerMenu : LoginSignup;
@@ -114,45 +143,20 @@ const Header = enhanceHeader(({ styles, ...props }) => {
       </span>
     ) : (
       <span>
-        <Col span={15} {...css(styles.colMainMenu)}>
-          <MainMenu styles={styles} />
+        <Col span={13}/>
+        <Col span={1} {...css(styles.mainMenuItem)}>
+          <Link to="/faq" {...css(styles.link)}>
+            FAQ
+          </Link>
         </Col>
-        <Col span={5} {...css(styles.colMainMenu)}>
+        <Col span={2} {...css(styles.mainMenuItem)}>
+          <ContactButton styles={styles}/>
+        </Col>
+        <Col span={4} {...css(styles.colMainMenu)}>
           <MenuSpe styles={styles} />
         </Col>
       </span>
     )
-  const temporarayMenu = (
-    <span>
-      <Col span={15}/>
-      <Col span={1} {...css(styles.tempMenuItem)}>
-        <Link to="/faq" {...css(styles.link)}>
-          FAQ
-        </Link>
-      </Col>
-      <Col span={4} {...css(styles.contactContainer)}>
-        <button
-          {...css(styles.contactButton)}
-          onClick={_ => props.setContact(true)}
-        >
-          CONTACT US
-        </button>
-        {props.contactVisible ?
-          <Modal
-            styles={styles}
-            visible={props.setContact}
-            text={(
-              <span>
-                Contact us. <br/>
-              <hr/>
-                <a href="mailto:contact.us@vlynt.com?Subject=Hello%20again">contact.us@vlynt.com</a>
-              </span>
-            )}/> :
-          null
-        }
-      </Col>
-    </span>
-  )
 
   return (
     <Row {...css(styles.container)}>
@@ -161,7 +165,7 @@ const Header = enhanceHeader(({ styles, ...props }) => {
         <img src="../../imgs/logos/logo_white.png" alt="log_rgb" {...css(styles.logo)}/>
       </Link>
       </Col>
-      {temporarayMenu}
+      {Menu}
     </Row>
   )
 })
@@ -204,10 +208,18 @@ export default  withStyles(({ color, unit }) => ({
     textAlign: 'center',
     paddingTop: '25px',
   },
+  mainMenuItem: {
+    color: 'white',
+    fontSize: '18px',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   colMainMenuSpe: {
     textAlign: 'right',
     paddingTop: '25px',
-  }, 
+  },
   colLogo: {
     paddingTop: '10px',
     textAlign: 'center',
@@ -255,12 +267,15 @@ export default  withStyles(({ color, unit }) => ({
     alignItems: 'center',
   },
   contactButton: {
+    color: 'white',
+    fontSize: '18px',
+    height: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0)',
-    border: '1px solid white',
-    width: '120px',
-    height: '30px',
-    borderRadius: '27px',
-    fontSize: '14',
+    border: '0px',
+    outline: '0',
     ':hover': {
       cursor: 'pointer',
     },
@@ -271,12 +286,5 @@ export default  withStyles(({ color, unit }) => ({
       color: color.lightPrimary,
     },
   },
-  tempMenuItem: {
-    color: 'white',
-    fontSize: '18px',
-    height: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+
   }))(Header)

@@ -200,6 +200,7 @@ export default withStyles(({ color, unit }) => ({
   firstContact: {
     backgroundColor: 'rgba(0,0,0,0)',
     border: '2px solid white',
+    outline: '0',
     width: '180px',
     height: '56px',
     borderRadius: '27px',
