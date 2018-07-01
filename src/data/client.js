@@ -7,7 +7,7 @@ const hubAddress = process.env.DATABRIDGE_HUB_GRAPHQL || 'http://localhost:9000/
 
 const httpLink = createHttpLink({
   uri: hubAddress,
-  credentials: '*',
+  credentials: 'same-origin',  // eg. or credentials: 'omit', etc
 });
 
 const authLink = setContext((_, { headers }) => {
