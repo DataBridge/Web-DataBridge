@@ -62,7 +62,7 @@ const Home = enhanceHome(({ styles, ...props }) => {
           </span>
         </Col>
         <Col lg={12} {...css(styles.firstGlobe) }>
-          <EarthAnimation {...css(styles.globe) } />
+          <EarthAnimation styles={styles.globe} />
         </Col>
       </Row>
 
