@@ -5,6 +5,8 @@ query domainsStats($ids: [Int]!, $from: String!, $to: String!) {
         DomainId
         vlynt
         fallback
+        region
+        category
     }
 }
 

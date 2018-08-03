@@ -192,6 +192,8 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   if (statsQuery && statsQuery.loading)
     return <Spin size="large" /> 
 
+  console.log(statsQuery.domainsStats.length, '___')
+
   let chartData = sortBy(statsQuery.domainsStats, x => {
     return new Date(x.time);
   }).filter(x => {

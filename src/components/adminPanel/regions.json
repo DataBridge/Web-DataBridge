@@ -1,0 +1,22 @@
+{
+    "North America": {
+        "lat": 54.5260,
+        "long": -105.2551
+    },
+    "South America": {
+        "lat": 8.7832,
+        "long": -55.4915
+    },
+    "Europe": {
+        "lat": 54.5260,
+        "long": 15.2551
+    },
+    "Asia": {
+        "lat": 34.0479,
+        "long": 100.6197
+    },
+    "Africa": {
+        "lat": 8.7832,
+        "long": 34.5085
+    }
+}
