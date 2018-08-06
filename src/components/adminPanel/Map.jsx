@@ -143,9 +143,6 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
   if (statsQuery && statsQuery.loading)
     return <Spin size="large" />
 
-
-
-  console.log(statsQuery.domainsStats.length, '!!!!!')
   const stats = statsQuery.domainsStats.filter(x => {
     return moment(x.time).isSameOrAfter(props.from) && x.DomainId === props.domainSelect;
   })

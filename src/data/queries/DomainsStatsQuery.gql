@@ -9,4 +9,3 @@ query domainsStats($ids: [Int]!, $from: String!, $to: String!) {
         category
     }
 }
-
