@@ -6,6 +6,7 @@ import WebsiteZone from './WebsiteZone';
 import Domains from './Domains';
 import Stats from './Stats';
 import Patterns from './Patterns';
+import VlyntMap from './Map';
 
 const enhance = compose(
   withState('stateWebsite', 'setStateWebsite', null),
@@ -42,7 +43,7 @@ const AdminPanel = enhance(({ styles, ...props }) => {
                   <Domains websiteId={props.stateWebsite} />,
                   <Patterns websiteId={props.stateWebsite} />,
                   <Stats websiteId={props.stateWebsite} />,
-                  <span> Coming Soon </span>,
+                  <VlyntMap websiteId={props.stateWebsite} />,
                 ]}
               />
             </div>
@@ -73,7 +74,7 @@ export default withStyles(({ color, unit }) => ({
   },
   tabsContainer: {
     width: '100%',
-    maxWidth: '1170px',
+    maxWidth: '1500px',
     textAlign: 'center',
     display: 'inline-block'
   },

@@ -15,13 +15,15 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.resolve('dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devtool: 'source-map',
-  devServer: {
+ devServer: {
     compress: true,
-    disableHostCheck: true, 
-  },
+    disableHostCheck: true,   // That solved it
+    historyApiFallback: true,
+ } ,
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
@@ -53,9 +55,9 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.jsx', '.gql'],
-    alias: {
-      'react': 'react-lite',
-      'react-dom': 'react-lite'
-    },
+    // alias: {
+    //   'react': 'react-lite',
+    //   'react-dom': 'react-lite'
+    // },
   },
 }
