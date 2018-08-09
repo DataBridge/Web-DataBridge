@@ -3,7 +3,7 @@ import { css, withStyles } from 'withStyles';
 import { graphql } from 'react-apollo';
 import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col, DatePicker } from 'antd';
-import { map, sortBy, sum, find, groupBy, values, flatten, mean } from 'lodash';
+import { cloneDeep, map, sortBy, sum, find, groupBy, values, flatten, mean } from 'lodash';
 import Dropdown from 'react-dropdown';
 import moment from 'moment';
 import { Line as LineChart } from 'react-chartjs-2';
@@ -29,7 +29,7 @@ function computeCost(chartData, pricingsData) {
       acc += v.vlynt;
       return {
         ...v,
-        cum, 
+        cum,
       }
     });
 
@@ -54,7 +54,7 @@ function ChartCard({ styles, data, options, left, right }) {
   return (
     <div>
     <Row {...css(styles.chartContainer)}>
-      <LineChart 
+      <LineChart
         data={data}
         options={options}
         width={500}
@@ -111,7 +111,7 @@ const enhance = compose(
   }),
   graphql(DomainsStatsQuery, {
     options: ({ domainsIds, fromStart, to }) => ({
-      variables: { 
+      variables: {
         ids: domainsIds,
         from: moment(fromStart).format('YYY-MM-DD'),
         to: moment(to).format()
@@ -126,9 +126,9 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   if (!props.websiteId)
     return (null)
   if (domainsQuery && domainsQuery.loading)
-    return <Spin size="large" /> 
+    return <Spin size="large" />
   if (pricingsQuery && pricingsQuery.loading)
-    return <Spin size="large" /> 
+    return <Spin size="large" />
 
   const domainsIds = domainsQuery.websiteDomains.map(x => (x.id));
   if (domainsIds.toString() !== props.domainsIds.toString())
@@ -158,8 +158,8 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   const header = (
     <Row {...css(styles.headerRow)}>
       <Col span={12} {...css(styles.dates)}>
-        <DatePicker 
-          onChange={handleFrom} 
+        <DatePicker
+          onChange={handleFrom}
           defaultValue={moment(props.from)}
           format={'MMM D, YYYY'}
         />
@@ -173,11 +173,11 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
       <Col span={4}>
       </Col>
       <Col span={2}>
-        Domains: 
+        Domains:
       </Col>
       <Col span={6} {...css(styles.colDropdown)}>
-        <Dropdown 
-          options={options} 
+        <Dropdown
+          options={options}
           value={selectedOption}
           placeholder={'Select'}
           onChange={({ value }) => props.setDomainSelect(value)}
@@ -190,11 +190,19 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
     return header;
 
   if (statsQuery && statsQuery.loading)
-    return <Spin size="large" /> 
+    return <Spin size="large" />
 
   console.log(statsQuery.domainsStats.length, '___')
 
-  let chartData = sortBy(statsQuery.domainsStats, x => {
+  // Convert domain stats to GB
+  const convertedDomainStats = statsQuery.domainsStats.map((stat, i) => {
+    const convertedStat = cloneDeep(stat);
+    convertedStat.fallback = stat.fallback * 1e-9;
+    convertedStat.vlynt = stat.vlynt * 1e-9;
+    return convertedStat;
+  });
+
+  let chartData = sortBy(convertedDomainStats, x => {
     return new Date(x.time);
   }).filter(x => {
      return x.DomainId == props.domainSelect;
@@ -236,7 +244,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
       xAxes: [{
         gridLines: {
           display: false,
-        }   
+        }
       }]
     },
     legend: {
@@ -272,7 +280,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   const dataConso = (canvas) => {
     const ctx = canvas.getContext("2d")
     const gradient = ctx.createLinearGradient(0,0,0,150);
-    gradient.addColorStop(0, 'rgba(0, 199, 239, 0.5)');   
+    gradient.addColorStop(0, 'rgba(0, 199, 239, 0.5)');
     gradient.addColorStop(1, 'rgba(0, 199, 239, 0.05)');
     return {
     labels,
@@ -328,7 +336,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
   const dataCost = (canvas) => {
     const ctx = canvas.getContext("2d")
     const gradient = ctx.createLinearGradient(0,0,0,150);
-    gradient.addColorStop(0, 'rgba(0, 199, 239, 0.5)');   
+    gradient.addColorStop(0, 'rgba(0, 199, 239, 0.5)');
     gradient.addColorStop(1, 'rgba(0, 199, 239, 0.05)');
     return {
       labels,
@@ -387,7 +395,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
       {header}
       <Row>
         <Col lg={11} md={24} {...css(styles.cardContainer)}>
-          <ChartCard 
+          <ChartCard
             styles={styles}
             data={dataConso}
             options={charOpts}
@@ -404,7 +412,7 @@ const Stats = enhance(({ styles, domainsQuery, statsQuery,
         </Col>
         <Col lg={2} md={0}/>
         <Col lg={11} md={24} {...css(styles.cardContainer)}>
-          <ChartCard 
+          <ChartCard
             styles={styles}
             data={dataCost}
             options={charOpts}

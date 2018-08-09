@@ -1,26 +1,34 @@
 {
-    "North America": {
+    "north america": {
         "lat": 54.5260,
         "long": -105.2551
     },
-    "South America": {
+    "south america": {
         "lat": 8.7832,
         "long": -55.4915
     },
-    "Europe": {
+    "europe": {
         "lat": 54.5260,
         "long": 15.2551
     },
-    "Asia": {
+    "asia": {
         "lat": 34.0479,
         "long": 100.6197
     },
-    "Africa": {
+    "africa": {
         "lat": 8.7832,
         "long": 34.5085
     },
-    "Australia": {
+    "oceania": {
       "lat":-24.165138,
       "long":132.900874
+    },
+    "middle east": {
+      "lat":32.209443,
+      "long":40.577328
+    },
+    "unkown": {
+      "lat":-30,
+      "long":-150
     }
 }

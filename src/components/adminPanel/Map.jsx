@@ -4,7 +4,7 @@ import moment from 'moment';
 import { css, withStyles } from 'withStyles';
 import Dropdown from 'react-dropdown';
 import { Spin, Row, Col, DatePicker } from 'antd';
-import { groupBy, sumBy, max, min, sortBy, reverse } from 'lodash';
+import { cloneDeep, groupBy, sumBy, max, min, sortBy, reverse } from 'lodash';
 import {
   ComposableMap,
   ZoomableGroup,
@@ -50,7 +50,7 @@ const enhance = compose(
   withState('to', 'setTo', moment().format('YYYY-MM-DD')),
   withState('domainSelect', 'setDomainSelect', null),
   withState('region', 'setRegion', null),
-  withState('category', 'setCategory', null),
+  withState('device', 'setCategory', null),
   withHandlers({
     nextPage: ({ setStateCurrPage }) => () => setStateCurrPage(x => x + 1),
   }),
@@ -135,66 +135,79 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
         />
       </Col>
     </Row>
-  )
+  );
 
-  if (!statsQuery)
-    return header;
+  if (!statsQuery) return header;
 
-  if (statsQuery && statsQuery.loading)
-    return <Spin size="large" />
+  if (statsQuery && statsQuery.loading) return <Spin size="large" />;
 
-  const stats = statsQuery.domainsStats.filter(x => {
+  // Modify data for display
+  const convertedDomainStats = statsQuery.domainsStats.map((stat) => {
+    const convertedStat = cloneDeep(stat);
+    // Convert domain stats to GB
+    convertedStat.fallback = stat.fallback * 1e-9;
+    convertedStat.vlynt = stat.vlynt * 1e-9;
+    return convertedStat;
+  });
+
+  const stats = convertedDomainStats.filter(x => {
     return moment(x.time).isSameOrAfter(props.from) && x.DomainId === props.domainSelect;
   })
-  const x = groupBy(stats, x => x.region)
+  const byRegion = groupBy(stats, x => x.region)
   const markers = [];
   let sizes = [];
-  let total_cat = 0;
-  for (var key in x) {
-    const s = sumBy(x[key], 'vlynt');
+  let totalCat = 0;
+  // for (var region in byRegion)
+  Object.keys(byRegion).map((region) => {
+    const sumByRegion = Math.ceil(sumBy(byRegion[region], 'vlynt'));
 
-    const y = groupBy(x[key], y => y.category);
+    const byDevice = groupBy(byRegion[region], y => y.device);
     let cats = []
-    for (var cat_key in y) {
-      const ss = sumBy(y[cat_key], 'vlynt');
-      total_cat += ss;
+    // for (var cat_key in byDevice)
+    Object.keys(byDevice).forEach((cat_key) =>  {
+      const sumByDevice = Math.ceil(sumBy(byDevice[cat_key], 'vlynt'));
+      totalCat += sumByDevice;
+
+      // Capitalize devices
+      const device = (cat_key === 'television') ? 'SmartTV' : cat_key.charAt(0).toUpperCase() + cat_key.slice(1);
+
       cats.push({
-        category: cat_key,
-        val: ss
-      })
+        device,
+        val: sumByDevice
+      });
+    });
+    cats = sortBy(cats, 'val');
+
+    sizes.push(sumByRegion);
+
+    if (regions[region] == null) {
+      region = 'unkown';
     }
-    cats = sortBy(cats, 'val')
-    console.log(y)
 
-
-    sizes.push(s)
     const res = {
       markerOffset: 0,
-      name: key,
-      value: s,
-      coordinates: [regions[key].long, regions[key].lat],
+      name: region,
+      value: Math.ceil(sumByRegion),
+      coordinates: [regions[region].long, regions[region].lat],
       categories: cats,
-      totalCat: total_cat,
-    }
-    total_cat = 0;
-    markers.push(res)
-  }
-  const minSize = min(sizes);
+      totalCat: Math.ceil(totalCat),
+    };
+    totalCat = 0;
+    markers.push(res);
+  });
   const maxSize = max(sizes);
+  const minSize = (max(sizes) === min(sizes)) ? 0 : min(sizes);
 
 
-
-
-
-  const projectionCongig = {
+  const projectionConfig = {
     scale: 250,
     rotation: [-11, 0, 0],
-  }
+  };
   return (
     <div style={wrapperStyles}>
       {header}
       <ComposableMap
-        projectionConfig={projectionCongig}
+        projectionConfig={projectionConfig}
         width={1000}
         height={600}
         style={{
@@ -276,14 +289,15 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
 
 
                   {props.region === marker.name ? (
-                    <g transform="scale(0.5) translate(25, 25)"
+                    <g
+                      transform={`scale(0.5) translate(${(marker.name === 'oceania') ? -325 : 25}, 25)`}
                       stroke="grey"
                       strokeOpacity="0.2"
                       strokewidth="1"
                     >
                       <rect x="-20" y="-20" width="350" height="150"
                         fill="white" ry="15" ry="15" />
-                      {marker.categories.map(({ category, val }, i) => {
+                      {marker.categories.map(({ device, val }, i) => {
                         const offset = Math.round(((val / marker.totalCat) * 100));
                         offsetCum += offset;
                         const spacing = (1 / (marker.categories.length + 1)) * 150;
@@ -295,17 +309,17 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                               style={{
                                 fontFamily: "Roboto, sans-serif",
                                 fontSize: '16px',
-                                fill: props.category === category ? cc : "#000000",
+                                fill: props.device === device ? cc : "#000000",
                               }}>
-                              {`${category}`}
+                              {`${device}`}
                             </text>
                             <text x="220" y={130 - spacing * (i + 1) + 5}
                               style={{
                                 fontFamily: "Roboto, sans-serif",
                                 fontSize: '16px',
-                                fill: props.category === category ? cc : "#000000",
+                                fill: props.device === device ? cc : "#000000",
                               }}>
-                              {`${offset}% (${val})`}
+                              {`${offset}% (${val} GB)`}
                             </text>
                           </g>
                         )
@@ -313,7 +327,7 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                       {offsetCum = 0}
                       <circle cx="50" cy="50" width="100" r="54" fill="grey" opacity="0.5" />
                       <circle cx="50" cy="50" width="100" r="52" fill="white" />
-                      {reverse(marker.categories.map(({ category, val }, i) => {
+                      {reverse(marker.categories.map(({ device, val }, i) => {
                         const offset = Math.round(((val / marker.totalCat) * 100));
                         offsetCum += offset;
                         const cc = colorBetween('#4fe3c3', '#4b6ee5', offsetCum / 100, 'hex')
@@ -327,11 +341,11 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                             </mask>
                             <g
                               onMouseLeave={_ => props.setCategory(null)}
-                              onMouseOver={_ => props.setCategory(category)}
+                              onMouseOver={_ => props.setCategory(device)}
                             >
                               <rect x="0" y="0" width="100" height={(offsetCum / 100) * 100}
                                 fill={cc} mask="url(#myMask)" />
-                              {props.category === category && offset > 20 ? (
+                              {props.device === device && offset > 20 ? (
                                 <g transform="rotate(180 50 50)">
                                   <text x="25" y={100 - (offsetCum / 100) * 100 + dec}
                                     style={{
@@ -368,15 +382,17 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
           </Markers>
         </ZoomableGroup>
       </ComposableMap>
-      <button onClick={props.upZoom}>
-        +
-      </button>
-      <button onClick={props.downZoom}>
-        -
-      </button>
+      {
+      // <button onClick={props.upZoom}>
+      //   +
+      // </button>
+      // <button onClick={props.downZoom}>
+      //   -
+      // </button>
+      }
     </div>
-  )
-})
+  );
+});
 
 export default withStyles(({ color, unit }) => ({
   dates: {
