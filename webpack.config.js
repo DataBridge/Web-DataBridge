@@ -44,20 +44,20 @@ module.exports = {
     HtmlWebpackPluginConfig,
     new webpack.DefinePlugin({
       'process.env.DATABRIDGE_HUB_GRAPHQL': JSON.stringify(process.env.DATABRIDGE_HUB_GRAPHQL)
-    })
-/*     new webpack.DefinePlugin({
+    }),
+    new webpack.DefinePlugin({
       'process.env': {
       'NODE_ENV': "'production'",
     }}),
     new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
-    new UglifyJsPlugin(), */
+    new UglifyJsPlugin(),
   ],
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.jsx', '.gql'],
-/*     alias: {
+    alias: {
       'react': 'react-lite',
       'react-dom': 'react-lite'
-    }, */
+    },
   },
 }
