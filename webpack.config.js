@@ -55,9 +55,9 @@ module.exports = {
   resolve: {
     modules: [path.resolve(__dirname, 'src'), 'node_modules'],
     extensions: ['.js', '.jsx', '.gql'],
-    alias: {
-      'react': 'react-lite',
-      'react-dom': 'react-lite'
-    },
+    // alias: {
+    //   'react': 'react-lite',
+    //   'react-dom': 'react-lite'
+    // },
   },
 }
