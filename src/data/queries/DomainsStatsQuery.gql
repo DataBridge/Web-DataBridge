@@ -6,6 +6,6 @@ query domainsStats($ids: [Int]!, $from: String!, $to: String!) {
         vlynt
         fallback
         region
-        category
+        device
     }
 }

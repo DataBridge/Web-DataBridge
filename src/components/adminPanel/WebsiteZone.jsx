@@ -23,10 +23,10 @@ const enhance = compose(
   }),
   graphql(CreateWebsiteMutation, { name: 'createWebsite' }),
 );
-const WebsiteZone = enhance(({ styles, data, setValue, webSelect, 
+const WebsiteZone = enhance(({ styles, data, setValue, webSelect,
   ...props }) => {
-  if (data.loading)
-    return <Spin size="large" /> 
+  if (data != null && data.loading)
+    return <Spin size="large" />
 
   const createWebsite = (name) => () => {
      props.createWebsite({
@@ -40,7 +40,7 @@ const WebsiteZone = enhance(({ styles, data, setValue, webSelect,
   }
 
   let options;
-  if (data.myWebsites.length > 0) {
+  if (data != null && data.myWebsites.length > 0) {
     options = data.myWebsites.map(w => ({
       value: w.id,
       label: w.name,
@@ -57,13 +57,13 @@ const WebsiteZone = enhance(({ styles, data, setValue, webSelect,
       },
     ]
   }
-  
+
   if (!webSelect)
     setValue(options[0].value)
 
   return (
     <Row {...css(styles.container)}>
-      <ModalV 
+      <ModalV
         title="New Website"
         placeholder="Website"
         visible={props.modalWeb}
@@ -71,11 +71,11 @@ const WebsiteZone = enhance(({ styles, data, setValue, webSelect,
         onCancel={props.hideModWeb}
       />
       <Col span={2} {...css(styles.text)}>
-        Website: 
+        Website:
       </Col>
       <Col span={14}>
-        <Dropdown 
-          options={options} 
+        <Dropdown
+          options={options}
           value={options[0].label} placeholder="Select an option"
           onChange={({ value }) => setValue(value)}
         />

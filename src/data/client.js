@@ -7,7 +7,7 @@ const hubAddress = process.env.DATABRIDGE_HUB_GRAPHQL || 'http://localhost:9000/
 
 const httpLink = createHttpLink({
   uri: hubAddress,
-  credentials: 'same-origin',  // eg. or credentials: 'omit', etc
+  credentials: 'same-origin', // eg. or credentials: 'omit', etc
 });
 
 const authLink = setContext((_, { headers }) => {
@@ -17,9 +17,9 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      authorization: token ? `Bearer ${token}` : "",
+      authorization: token ? `Bearer ${token}` : '',
     }
-  }
+  };
 });
 
 export default new ApolloClient({

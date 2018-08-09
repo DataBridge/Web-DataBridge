@@ -15,16 +15,15 @@ module.exports = {
   entry: './src/index.jsx',
   output: {
     path: path.resolve('dist'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    publicPath: '/'
   },
   devtool: 'source-map',
  devServer: {
-
     compress: true,
-
     disableHostCheck: true,   // That solved it
-
- } ,   
+    historyApiFallback: true,
+ } ,
   module: {
     loaders: [
       { test: /\.js$/, loader: 'babel-loader', exclude: /node_modules/ },
