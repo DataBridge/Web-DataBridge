@@ -15,10 +15,6 @@ const enhance = compose(
   }),
 );
 const AdminPanel = enhance(({ styles, ...props }) => {
-  if (props.stateWebsite) {
-    console.log('AAAAAA')
-    console.log(props.stateWebsite)
-  }
   return (
     <div {...css(styles.container)}>
       <div {...css(styles.head)}>
