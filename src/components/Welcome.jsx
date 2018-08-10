@@ -1,12 +1,15 @@
 import React from 'react';
 import { css, withStyles } from 'withStyles';
 import { graphql } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 import { compose, withState, withHandlers } from 'recompose';
 import InputV from 'components/input/InputV';
 import Primary from 'components/buttons/Primary';
 import MeQuery from 'data/queries/MeQuery';
+import CreateWebsiteMutation from 'data/mutations/CreateWebsiteMutation';
 
 const enhance = compose(
+  withRouter,
   withState('stateSite', 'setStateSite', 'empty'),
   withState('siteValue', 'setSiteValue', null),
   withHandlers({
@@ -19,10 +22,29 @@ const enhance = compose(
       skip: !localStorage.getItem('token'),
     })
   }),
+  graphql(CreateWebsiteMutation, { name: 'createWebsite' }),
 );
 
-const Modal = enhance(({ styles, data, ...props }) => {
+const Modal = enhance(({ styles, history, data, createWebsite, ...props }) => {
   const isActivated = localStorage.getItem('activated');
+
+  const confirmCreation = () => {
+    if (props.stateSite !== 'valid') {
+      return;
+    }
+    createWebsite({
+      variables: {
+        input: {
+          name: props.siteValue
+        }
+      },
+      update: () => {
+        localStorage.setItem('updated', true);
+        history.push('/panel', true);
+      }
+    });
+  };
+
 
   const websiteInput = (
     <div {...css(styles.modal)}>
@@ -38,11 +60,11 @@ const Modal = enhance(({ styles, data, ...props }) => {
         setValue={props.setSiteValue}
       />
       &nbsp; &nbsp;
-      <Primary text="ADD" />
+      <Primary text="ADD" onClick={confirmCreation} />
     </div>
   );
 
-  const personalisedMessage = (data && data.me) ? `Hello ${data.me.first_name}!` : '';
+  const personalisedMessage = (data && data.me) ? `Hello ${data.me.first_name.charAt(0).toUpperCase() + data.me.first_name.substr(1)}!` : '';
   const waitingForActivation = (
     <div {...css(styles.modal)}>
       <div {...css(styles.info)}>
