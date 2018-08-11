@@ -6,22 +6,7 @@ import { css, withStyles } from 'withStyles';
 import { Row, Col, Spin } from 'antd';
 import { compose, withState, withHandlers } from 'recompose';
 import MeQuery from 'data/queries/MeQuery';
-
-function Modal({ styles, text, visible }) {
-  const handleClick = e => {
-    alert('thug')
-  }
-  return (
-    <div
-      {...css(styles.modal)}
-      onClick={_ => visible(false)}
-    >
-      <div {...css(styles.modalContent)}>
-        {text}
-      </div>
-    </div>
-  )
-};
+import SimpleModal from './popups/simpleModal';
 
 function LoginSignup({ styles }) {
   return (
@@ -99,9 +84,9 @@ const ContactButton = enhanceContact(({ styles, ...props }) => {
         CONTACT
       </button>
       {props.contactVisible ?
-        <Modal
+        <SimpleModal
           styles={styles}
-          visible={props.setContact}
+          toggleVisible={props.setContact}
           text={(
             <span>
               Contact us. <br/>

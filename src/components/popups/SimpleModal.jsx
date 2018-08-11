@@ -32,7 +32,7 @@ export default  withStyles(({ color, unit }) => ({
   modalContent: {
     position: 'absolute',
     width: '300px',
-    // height: '100%',
+    'min-height': '100px',
     left: '50%',
     top: '25%',
     marginLeft: '-150px',
