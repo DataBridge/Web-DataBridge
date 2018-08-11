@@ -7,6 +7,7 @@ import { Spin, Row, Col, Select } from 'antd';
 import ModalV from '../popups/ModalV';
 import ConfirmModal from '../popups/ConfirmModal';
 import WebsiteDomainsQuery from 'data/queries/WebsiteDomainsQuery';
+import VerifyDomainMutation from 'data/mutations/VerifyDomainMutation';
 import EnableDomainMutation from 'data/mutations/EnableDomainMutation';
 import DisableDomainMutation from 'data/mutations/DisableDomainMutation';
 import CreateDomainMutation from 'data/mutations/CreateDomainMutation';
@@ -20,11 +21,13 @@ const Option = Select.Option;
 const enhance = compose(
   withState('stateRowsPP', 'setStateRowsPP', 10),
   withState('stateCurrPage', 'setStateCurrPage', 0),
+  withState('stateCurrentDom', 'setCurrentDom', null),
   withState('modalDom', 'setModalDom', false),
   withState('modalWarn', 'setModalWarn', false),
   withHandlers({
     nextPage: ({ setStateCurrPage }) => () => setStateCurrPage(x => x+1),
     prevPage: ({ setStateCurrPage }) => () => setStateCurrPage(x => x-1),
+    currentDom: ({ setCurrentDom }) => (domainId) => setCurrentDom(domainId),
     showModWarn: ({ setModalWarn }) => () => setModalWarn(_ => true),
     showModDom: ({ setModalDom }) => () => setModalDom(_ => true),
     hideModDom: ({ setModalDom }) => () => setModalDom(_ => false),
@@ -35,13 +38,27 @@ const enhance = compose(
       skip: !websiteId,
     })
   }),
+  graphql(VerifyDomainMutation, { name: 'verifyDomain' }),
   graphql(EnableDomainMutation, { name: 'enableDomain' }),
   graphql(DisableDomainMutation, { name: 'disableDomain' }),
   graphql(CreateDomainMutation, { name: 'createDomain' }),
-)
+);
+
 const Domains = enhance(({ styles, data, ...props }) => {
   if (data && data.loading)
     return <Spin size="large" />
+
+  const verificationConfirmation = (domainId) => () => {
+    props.currentDom(domainId)
+    props.showModWarn();
+  }
+
+  const verifyDomain = () => {
+    props.verifyDomain({
+      variables: { id: props.stateCurrentDom },
+    })
+    props.currentDom(null)
+  }
 
   const enableDomain = (id) => () => {
     props.enableDomain({
@@ -77,7 +94,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
         });
       },
     });
-  }
+  };
 
 
   const offset = props.stateCurrPage * props.stateRowsPP;
@@ -88,7 +105,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
                     data.websiteDomains.length);
     body = data.websiteDomains.map((domain, i) => {
       const rowStyle = (i % 2) == 0 ? 'rowEven' : 'rowOdd'
-      const verified = domain.verified ? 'yes' : <Secondary text="Verify Now" onClick={props.showModWarn}/>
+      const verified = (id) => domain.verified ? 'yes' : <Secondary text="Verify Now" onClick={verificationConfirmation(id)}/>
       return (
         <tr key={i} {...css(styles[rowStyle])}>
           <td {...css(styles.colInter)}>
@@ -104,7 +121,9 @@ const Domains = enhance(({ styles, data, ...props }) => {
               }
             />
           </td>
-          <td {...css(styles.colInter)}>{verified}</td>
+          <td {...css(styles.colInter)}>{
+              verified(domain.id)
+            }</td>
         </tr>
       )
     }).slice(offset, offset + props.stateRowsPP);
@@ -133,7 +152,10 @@ const Domains = enhance(({ styles, data, ...props }) => {
         <ConfirmModal
           question="Do you confirm that you manage this domain?"
           yesText="Confirm"
-          onYes={props.setModalWarn}
+          onYes={() => {
+            verifyDomain()
+            props.setModalWarn
+          }}
           toggleVisible={props.setModalWarn}
           styles={styles}
           /> :
@@ -277,7 +299,7 @@ export default  withStyles(({ color, unit }) => ({
     fontWeight: '1000',
     backgroundColor: 'transparent',
     border: 'none',
-    color: color.lightGrey ,
+    color: color.lightGrey,
     ':hover': {
       color: color.darkPrimary,
     },

@@ -1,0 +1,8 @@
+mutation verifyDomain($id: Int!){
+  verifyDomain(id: $id){
+    domain {
+      id
+      verified 
+    }
+  }
+}
