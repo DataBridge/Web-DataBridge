@@ -5,7 +5,7 @@ import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col, Select } from 'antd';
 import moment from 'moment';
-import ModalV from './ModalV';
+import ModalV from '../popups/ModalV';
 import ModalSelect from './ModalSelect';
 import WebsiteDomainsQuery from 'data/queries/WebsiteDomainsQuery';
 import WebsitePatternsQuery from 'data/queries/WebsitePatternsQuery';
@@ -28,7 +28,7 @@ const ShowDomain = compose(
     hide: ({ setShow }) => () => setShow(_ => false),
   }),
 )(({ styles, showState, show, hide, pattern, showSelect }) => {
-  if (showState) { 
+  if (showState) {
     return (
       <span>
         {`${pattern.domains.length} Domains`} <span onClick={hide} {...css(styles.vertEllipse)}/>
@@ -40,7 +40,7 @@ const ShowDomain = compose(
       </span>
     )
   } else {
-     return pattern.domains && pattern.domains.length > 0 ? 
+     return pattern.domains && pattern.domains.length > 0 ?
       <span>
         {`${pattern.domains.length} Domains`} <span onClick={show} {...css(styles.horEllipse)}/>
       </span> :
@@ -86,9 +86,9 @@ const enhance = compose(
 )
 const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
   if (data && data.loading)
-    return <Spin size="large" /> 
+    return <Spin size="large" />
   if (patternsQuery && patternsQuery.loading)
-    return <Spin size="large" /> 
+    return <Spin size="large" />
 
 
   const enablePattern = (id) => () => {
@@ -119,7 +119,7 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
         data.websitePatterns.push(createPattern.pattern);
         // Write our data back to the cache.
         store.writeQuery({
-          query: WebsitePatternsQuery, 
+          query: WebsitePatternsQuery,
           variables: { websiteId: props.websiteId },
           data
         });
@@ -165,12 +165,12 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
           <td {...css(styles.colInter)}>
             <div {...css(styles.circle)} />
           </td>
-          <td {...css(styles.colInter)}> {pattern.name} </td> 
-          <td {...css(styles.colInter)}>  
+          <td {...css(styles.colInter)}> {pattern.name} </td>
+          <td {...css(styles.colInter)}>
             <Toggle
               on={pattern.enabled}
               onClick={
-                pattern.enabled ? disablePattern(pattern.id) : 
+                pattern.enabled ? disablePattern(pattern.id) :
                 enablePattern(pattern.id)
               }
             />
@@ -204,7 +204,7 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
 
   return (
     <div {...css(styles.container)}>
-      <ModalV 
+      <ModalV
         title="New Pattern"
         placeholder="Pattern"
         visible={props.modalPat}
@@ -223,7 +223,7 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
         <thead>
           <tr {...css(styles.head)}>
             <th {...(css(styles.colLeftTop))}>  </th>
-            <th {...(css(styles.colMidTop))}> Pattern </th> 
+            <th {...(css(styles.colMidTop))}> Pattern </th>
             <th {...(css(styles.colMidTop))}> Enable </th>
             <th {...(css(styles.colMidTop))}> Domains </th>
             <th {...(css(styles.colMidTop))}>  </th>
@@ -249,9 +249,9 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
         </Col>
         <Col span={8} {...css(styles.colFooter)}>
           Rows per page: &nbsp;&nbsp;
-          <Select 
-            labelInValue 
-            defaultValue={{ key: props.stateRowsPP }} 
+          <Select
+            labelInValue
+            defaultValue={{ key: props.stateRowsPP }}
             onChange={value => rowsPP(value.key)}
             {...css(styles.pageSelect)}
           >
@@ -262,12 +262,12 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
           </Select>
         </Col>
         <Col span={4} {...css(styles.colFooter)}>
-          {patternsQuery && !patternsQuery.loading ? `${offset+1}-${maxOffset} of 
+          {patternsQuery && !patternsQuery.loading ? `${offset+1}-${maxOffset} of
           ${patternsQuery.websitePatterns.length}` : null}
         </Col>
         <Col span={4} {...css(styles.colFooter)}>
-          <button onClick={prevPage} {...css(styles.pageButton)}> 
-            {'<'} 
+          <button onClick={prevPage} {...css(styles.pageButton)}>
+            {'<'}
           </button>
           <button onClick={nextPage} {...css(styles.pageButton)}>
              {'>'}

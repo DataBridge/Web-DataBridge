@@ -4,7 +4,8 @@ import { graphql } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col, Select } from 'antd';
-import ModalV from './ModalV';
+import ModalV from '../popups/ModalV';
+import SimpleModal from '../popups/simpleModal';
 import WebsiteDomainsQuery from 'data/queries/WebsiteDomainsQuery';
 import EnableDomainMutation from 'data/mutations/EnableDomainMutation';
 import DisableDomainMutation from 'data/mutations/DisableDomainMutation';
@@ -17,12 +18,14 @@ import 'withStyles/general.css';
 const Option = Select.Option;
 
 const enhance = compose(
-  withState('stateRowsPP', 'setStateRowsPP', 5),
+  withState('stateRowsPP', 'setStateRowsPP', 10),
   withState('stateCurrPage', 'setStateCurrPage', 0),
   withState('modalDom', 'setModalDom', false),
+  withState('modalWarn', 'setModalWarn', false),
   withHandlers({
     nextPage: ({ setStateCurrPage }) => () => setStateCurrPage(x => x+1),
     prevPage: ({ setStateCurrPage }) => () => setStateCurrPage(x => x-1),
+    showModWarn: ({ setModalWarn }) => () => setModalWarn(_ => true),
     showModDom: ({ setModalDom }) => () => setModalDom(_ => true),
     hideModDom: ({ setModalDom }) => () => setModalDom(_ => false),
   }),
@@ -38,7 +41,7 @@ const enhance = compose(
 )
 const Domains = enhance(({ styles, data, ...props }) => {
   if (data && data.loading)
-    return <Spin size="large" /> 
+    return <Spin size="large" />
 
   const enableDomain = (id) => () => {
     props.enableDomain({
@@ -68,7 +71,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
         data.websiteDomains.push(createDomain.domain);
         // Write our data back to the cache.
         store.writeQuery({
-          query: WebsiteDomainsQuery, 
+          query: WebsiteDomainsQuery,
           variables: { websiteId: props.websiteId },
           data
         });
@@ -85,18 +88,18 @@ const Domains = enhance(({ styles, data, ...props }) => {
                     data.websiteDomains.length);
     body = data.websiteDomains.map((domain, i) => {
       const rowStyle = (i % 2) == 0 ? 'rowEven' : 'rowOdd'
-      const verified = domain.verified ? 'yes' : <Secondary text="Verify Now"/>
+      const verified = domain.verified ? 'yes' : <Secondary text="Verify Now" onClick={props.showModWarn}/>
       return (
         <tr key={i} {...css(styles[rowStyle])}>
           <td {...css(styles.colInter)}>
             <div {...css(styles.circle)} />
           </td>
-          <td {...css(styles.colInter)}> {domain.name} </td> 
-          <td {...css(styles.colInter)}>  
+          <td {...css(styles.colInter)}> {domain.name} </td>
+          <td {...css(styles.colInter)}>
             <Toggle
               on={domain.enabled}
               onClick={
-                domain.enabled ? disableDomain(domain.id) : 
+                domain.enabled ? disableDomain(domain.id) :
                 enableDomain(domain.id)
               }
             />
@@ -126,7 +129,19 @@ const Domains = enhance(({ styles, data, ...props }) => {
 
   return (
     <div {...css(styles.container)}>
-      <ModalV 
+        {(props.modalWarn ?
+        <SimpleModal
+          styles={styles}
+          visible={props.setModalWarn}
+          text={(
+            <span>
+            Sorry, automatic verification is not enabled yet.<br/>
+            <hr/>
+            </span>
+          )}
+        /> :
+        null)}
+      <ModalV
         title="New Domain"
         placeholder="Domain"
         visible={props.modalDom}
@@ -137,7 +152,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
         <thead>
           <tr {...css(styles.head)}>
             <th {...(css(styles.colLeftTop))}>  </th>
-            <th {...(css(styles.colMidTop))}> Domain </th> 
+            <th {...(css(styles.colMidTop))}> Domain </th>
             <th {...(css(styles.colMidTop))}> Enable </th>
             <th {...(css(styles.colRightTop))}> Verified </th>
           </tr>
@@ -160,9 +175,9 @@ const Domains = enhance(({ styles, data, ...props }) => {
         </Col>
         <Col span={8} {...css(styles.colFooter)}>
           Rows per page: &nbsp;&nbsp;
-          <Select 
-            labelInValue 
-            defaultValue={{ key: props.stateRowsPP }} 
+          <Select
+            labelInValue
+            defaultValue={{ key: props.stateRowsPP }}
             onChange={value => rowsPP(value.key)}
             {...css(styles.pageSelect)}
           >
@@ -173,12 +188,12 @@ const Domains = enhance(({ styles, data, ...props }) => {
           </Select>
         </Col>
         <Col span={4} {...css(styles.colFooter)}>
-          {data && !data.loading ? `${offset+1}-${maxOffset} of 
+          {data && !data.loading ? `${offset+1}-${maxOffset} of
           ${data.websiteDomains.length}` : null}
         </Col>
         <Col span={4} {...css(styles.colFooter)}>
-          <button onClick={prevPage} {...css(styles.pageButton)}> 
-            {'<'} 
+          <button onClick={prevPage} {...css(styles.pageButton)}>
+            {'<'}
           </button>
           <button onClick={nextPage} {...css(styles.pageButton)}>
              {'>'}

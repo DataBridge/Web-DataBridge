@@ -6,7 +6,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col } from 'antd';
 import Dropdown from 'react-dropdown'
 import Primary from 'components/buttons/Primary';
-import ModalV from './ModalV';
+import ModalV from '../popups/ModalV';
 import MyWebsitesQuery from 'data/queries/MyWebsitesQuery';
 import CreateWebsiteMutation from 'data/mutations/CreateWebsiteMutation';
 import 'withStyles/dropdownStyle.css';

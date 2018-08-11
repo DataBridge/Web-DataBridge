@@ -10,12 +10,12 @@ function Secondary({ styles, disabled, text, onClick }) {
         disabled={disabled}
         onClick={onClick}
         {...(disabled ? css(styles.disabled) : css(styles.default))}
-      > 
+      >
         {text}
       </button>
     </div>
   )
-} 
+}
 
 const button = {
   fontFamily: 'Quicksand',
@@ -25,7 +25,7 @@ const button = {
   width: '100%',
   height: '100%',
   borderRadius: '25px',
-  ':focus': { 
+  ':focus': {
     outlineStyle: 'none'
     },
 }
