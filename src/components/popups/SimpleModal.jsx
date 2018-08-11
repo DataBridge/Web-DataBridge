@@ -1,14 +1,14 @@
 import React from 'react';
 import { css, withStyles } from 'withStyles';
 
-const SimpleModal = ({ styles, text, visible }) => {
+const SimpleModal = ({ styles, text, toggleVisible }) => {
   const handleClick = e => {
     alert('thug')
   }
   return (
     <div
       {...css(styles.modal)}
-      onClick={_ => visible(false)}
+      onClick={_ => toggleVisible(false)}
     >
       <div {...css(styles.modalContent)}>
         {text}
@@ -32,7 +32,7 @@ export default  withStyles(({ color, unit }) => ({
   modalContent: {
     position: 'absolute',
     width: '300px',
-    height: '100px',
+    // height: '100%',
     left: '50%',
     top: '25%',
     marginLeft: '-150px',

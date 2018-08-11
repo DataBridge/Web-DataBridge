@@ -5,7 +5,7 @@ import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col, Select } from 'antd';
 import ModalV from '../popups/ModalV';
-import SimpleModal from '../popups/simpleModal';
+import ConfirmModal from '../popups/ConfirmModal';
 import WebsiteDomainsQuery from 'data/queries/WebsiteDomainsQuery';
 import EnableDomainMutation from 'data/mutations/EnableDomainMutation';
 import DisableDomainMutation from 'data/mutations/DisableDomainMutation';
@@ -130,16 +130,13 @@ const Domains = enhance(({ styles, data, ...props }) => {
   return (
     <div {...css(styles.container)}>
         {(props.modalWarn ?
-        <SimpleModal
+        <ConfirmModal
+          question="Do you confirm that you manage this domain?"
+          yesText="Confirm"
+          onYes={props.setModalWarn}
+          toggleVisible={props.setModalWarn}
           styles={styles}
-          visible={props.setModalWarn}
-          text={(
-            <span>
-            Sorry, automatic verification is not enabled yet.<br/>
-            <hr/>
-            </span>
-          )}
-        /> :
+          /> :
         null)}
       <ModalV
         title="New Domain"
