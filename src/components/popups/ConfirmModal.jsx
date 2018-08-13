@@ -1,6 +1,6 @@
 import React from 'react';
 import { css, withStyles } from 'withStyles';
-import SimpleModal from '../popups/simpleModal';
+import SimpleModal from '../popups/SimpleModal';
 
 const ConfirmModal = ({ styles, question, yesText, noText, onYes, onNo, toggleVisible }) => {
   const a = 0

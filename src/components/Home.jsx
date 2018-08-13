@@ -4,7 +4,7 @@ import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col } from 'antd';
 
 import Card from './cards/Card'
-import SimpleModal from './popups/simpleModal';
+import SimpleModal from './popups/SimpleModal';
 import EarthAnimation from './animations/EarthAnimation'
 import CompAnimation from './animations/CompAnimation'
 
