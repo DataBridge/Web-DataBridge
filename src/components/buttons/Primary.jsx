@@ -3,19 +3,23 @@ import { css, withStyles } from 'withStyles';
 import { branch } from 'recompose';
 
 function Primary({ styles, disabled, text, onClick }) {
+  const handleClick = () => {
+    onClick();
+  };
+
   return (
       <button
         type="button"
-        onClick={onClick}
+        onClick={handleClick}
         disabled={disabled}
         {...(disabled ? css(styles.disabled) : css(styles.default))}
-      > 
-        <div {...(disabled ? css(styles.iconHolderDisabled) : 
+      >
+        <div {...(disabled ? css(styles.iconHolderDisabled) :
           css(styles.iconHolderDefault)) } />
         <div {...css(styles.text)}> {text} </div>
       </button>
   )
-} 
+}
 
 const iconHolder = {
   width: '60px',
@@ -38,7 +42,7 @@ const button = {
   height: '50px',
   borderRadius: '25px',
   border: 'none',
-  ':focus': { 
+  ':focus': {
     outlineStyle: 'none'
     },
 }

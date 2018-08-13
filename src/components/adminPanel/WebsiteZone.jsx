@@ -1,16 +1,18 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
+import { withRouter } from 'react-router-dom';
 import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col } from 'antd';
 import Dropdown from 'react-dropdown'
 import Primary from 'components/buttons/Primary';
-import ModalV from './ModalV';
+import ModalV from '../popups/ModalV';
 import MyWebsitesQuery from 'data/queries/MyWebsitesQuery';
 import CreateWebsiteMutation from 'data/mutations/CreateWebsiteMutation';
 import 'withStyles/dropdownStyle.css';
 
 const enhance = compose(
+  withRouter,
   withState('modalWeb', 'setModalWeb', false),
   withHandlers({
     showModWeb: ({ setModalWeb }) => () => setModalWeb(_ => true),
@@ -23,10 +25,14 @@ const enhance = compose(
   }),
   graphql(CreateWebsiteMutation, { name: 'createWebsite' }),
 );
-const WebsiteZone = enhance(({ styles, data, setValue, webSelect,
+const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
   ...props }) => {
   if (data != null && data.loading)
     return <Spin size="large" />
+
+  if (data != null && data.myWebsites.length === 0) {
+    history.push('/welcome');
+  }
 
   const createWebsite = (name) => () => {
      props.createWebsite({

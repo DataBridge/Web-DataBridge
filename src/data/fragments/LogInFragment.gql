@@ -1,6 +1,7 @@
 fragment SignInInfos on SignIn {
   email
   isLoggedIn
+  isActivated
   jwt
   errors {
     message

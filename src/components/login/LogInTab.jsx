@@ -70,7 +70,12 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
 
     if (data && !data.signIn.errors) {
       localStorage.setItem('token', data.signIn.jwt);
-      history.push('/panel')
+      if (data.signIn.isActivated) {
+        localStorage.setItem('activated', data.signIn.isActivated);
+        history.push('/panel');
+      } else {
+        history.push('/welcome');
+      }
     }
   }
 

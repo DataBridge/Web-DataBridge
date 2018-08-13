@@ -64,6 +64,9 @@ const SignUpTab = enhance(({ styles, children, stateEmail, statePwd, stateCPwd,
         input: {
           email: props.emailValue,
           password: props.pwdValue,
+          first_name: props.fnValue,
+          last_name: props.lnValue,
+          company: props.compValue,
         }
       },
     });
@@ -79,8 +82,8 @@ const SignUpTab = enhance(({ styles, children, stateEmail, statePwd, stateCPwd,
     (stateCPwd === 'valid') && (stateFn === 'valid') &&
     (stateLn === 'valid') && (stateComp === 'valid'))
     logInButton = (
-      <button 
-        type="button" 
+      <button
+        type="button"
         {...css(styles.logInButton)}
         onClick={createCustomer}
       >

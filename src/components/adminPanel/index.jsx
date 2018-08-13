@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router-dom';
 import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import Tabs from 'components/tabs/Tabs';
@@ -9,16 +10,21 @@ import Patterns from './Patterns';
 import VlyntMap from './Map';
 
 const enhance = compose(
+  withRouter,
   withState('stateWebsite', 'setStateWebsite', null),
   withHandlers({
     validEmail: ({ setStateEmail }) => () => setStateEmail(_ => 'valid'),
   }),
 );
-const AdminPanel = enhance(({ styles, ...props }) => {
-  if (props.stateWebsite) {
-    console.log('AAAAAA')
-    console.log(props.stateWebsite)
+
+const AdminPanel = enhance(({ styles, history, ...props }) => {
+  // Rerouting
+  if (!localStorage.getItem('token')) {
+    history.push('/');
+  } else if (!localStorage.getItem('activated')) {
+    history.push('/welcome');
   }
+
   return (
     <div {...css(styles.container)}>
       <div {...css(styles.head)}>

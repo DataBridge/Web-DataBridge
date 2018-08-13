@@ -4,24 +4,9 @@ import { compose, withState, withHandlers } from 'recompose';
 import { Row, Col } from 'antd';
 
 import Card from './cards/Card'
+import SimpleModal from './popups/simpleModal';
 import EarthAnimation from './animations/EarthAnimation'
 import CompAnimation from './animations/CompAnimation'
-
-function Modal({ styles, text, visible }) {
-  const handleClick = e => {
-    alert('thug')
-  }
-  return (
-    <div
-      {...css(styles.modal)}
-      onClick={_ => visible(false)}
-    >
-      <div {...css(styles.modalContent)}>
-        {text}
-      </div>
-    </div>
-  )
-}
 
 const enhanceHome = compose(
   withState('contactVisible', 'setContact', false),
@@ -47,9 +32,9 @@ const Home = enhanceHome(({ styles, ...props }) => {
               CONTACT US
             </button>
             {props.contactVisible ?
-            <Modal
+            <SimpleModal
               styles={styles}
-              visible={props.setContact}
+              toggleVisible={props.setContact}
               text={(
                 <span>
                 Contact us. <br/>
@@ -209,33 +194,7 @@ export default withStyles(({ color, unit }) => ({
       cursor: 'pointer',
     },
   },
-  modal: {
-    position: 'fixed',
-    zIndex: 1,
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: '100%',
-    overflow: 'auto',
-    backgroundColor: 'rgba(0,0,0,0.4)',
-    textAlign: 'center',
-  },
-  modalContent: {
-    position: 'absolute',
-    width: '300px',
-    height: '100px',
-    left: '50%',
-    top: '25%',
-    marginLeft: '-150px',
-    backgroundColor: 'black',
-    borderRadius: '15px',
-    backgroundColor: 'white',
-    color: color.darkPrimary,
-    fontSize: '18px',
-    paddingLeft: '20px',
-    paddingRight: '20px',
-    paddingTop: '12px'
-  },
+
   firstText: {
     color: 'white',
   },
