@@ -6,7 +6,7 @@ import { css, withStyles } from 'withStyles';
 import { Row, Col, Spin } from 'antd';
 import { compose, withState, withHandlers } from 'recompose';
 import MeQuery from 'data/queries/MeQuery';
-import SimpleModal from './popups/simpleModal';
+import SimpleModal from './popups/SimpleModal';
 
 function LoginSignup({ styles }) {
   return (
