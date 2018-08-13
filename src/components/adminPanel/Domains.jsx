@@ -121,9 +121,9 @@ const Domains = enhance(({ styles, data, ...props }) => {
               }
             />
           </td>
-          <td {...css(styles.colInter)}>{
-              verified(domain.id)
-            }</td>
+          <td {...css(styles.colInter)}>
+            {verified(domain.id)}
+          </td>
         </tr>
       )
     }).slice(offset, offset + props.stateRowsPP);

@@ -3,7 +3,7 @@ import { withApollo } from 'react-apollo';
 import { css, withStyles } from 'withStyles';
 
 const InputV = ({ styles, placeholder, state, empty, valid,
-  invalid, validate, setValue, display, pwd }) => {
+  invalid, validate, errorMessage, setValue, display, pwd }) => {
   const handleChange = (e) => {
     const value = e.target.value;
     if (!value)
@@ -20,7 +20,7 @@ const InputV = ({ styles, placeholder, state, empty, valid,
   }
 
   let styleSuffix;
-  if (state === 'invalid')
+  if (state === 'invalid' || state === 'error')
     styleSuffix = 'Inv';
   else if (state === 'valid')
     styleSuffix = 'Val';
@@ -45,9 +45,14 @@ const InputV = ({ styles, placeholder, state, empty, valid,
     <legend {...css(styles['legend'+styleSuffix])}>
       {`Invalid ${placeholder.toLowerCase()}`}
     </legend>
-   )
-  }
-  else {
+  );
+  } else if (state === 'error') {
+    legend = (
+      <legend {...css(styles['legend'+styleSuffix])}>
+        {`${errorMessage.toLowerCase()}`}
+      </legend>
+    );
+  } else {
     legend = null;
   }
 
