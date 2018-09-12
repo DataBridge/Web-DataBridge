@@ -85,6 +85,9 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
   if (domainsIds.toString() !== props.domainsIds.toString())
     props.setDomainsIds(domainsIds);
 
+  if (domainsQuery.websiteDomains.length === 0) {
+    return null
+  }
 
   const options = domainsQuery.websiteDomains.map(w => ({
     value: w.id,

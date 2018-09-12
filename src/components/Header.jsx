@@ -51,7 +51,7 @@ const CustomerMenu = enhance(({ styles, data, client }) => {
           Admin Panel
         </Link>
       </li>
-      <li {...css(styles.mainMenuLi)}>
+      <li {...css(styles.loginSignup)}>
         <Link to="/" onClick={handleLogout} {...css(styles.signup)}>
           LOG OUT
         </Link>
