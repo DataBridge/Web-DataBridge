@@ -32,6 +32,7 @@ const ShowDomain = compose(
     return (
       <span>
         {`${pattern.domains.length} Domains`} <span onClick={hide} {...css(styles.vertEllipse)}/>
+        <div {...css(styles.ellipseSpace)} />
         {pattern.domains.map((domain, i) => (
           <Row key={i} {...css(styles.doms)}>
             {domain.name}
@@ -218,6 +219,7 @@ const Patterns = enhance(({ styles, data, patternsQuery, ...props }) => {
         domainsSelected={props.select.domainsSelected || []}
         onOk={associateDomains}
         onCancel={() => props.hideModS()}
+        width="200px"
       />
       <table {...(css(styles.table))}>
         <thead>
@@ -380,6 +382,9 @@ export default  withStyles(({ color, unit }) => ({
     ':hover': {
       opacity: '0.5',
     },
+  },
+  ellipseSpace: {
+    height: '30px',
   },
   change: {
     width: '40px',

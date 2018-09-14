@@ -8,7 +8,7 @@ import InputV from 'components/input/InputV';
 const enhance = compose(
   withState('value', 'setValue', null),
 );
-const ModalSelect = enhance(({ styles, visible, title, onOk, onCancel, ...props }) => {
+const ModalSelect = enhance(({ styles, visible, title, onOk, onCancel, width, ...props }) => {
   const handleClick = () => {
     if (props.value) {
       onOk(props.possibleDomains.filter(x => props.value.includes(x.name)).map(x => x.id))();
@@ -30,6 +30,7 @@ const ModalSelect = enhance(({ styles, visible, title, onOk, onCancel, ...props 
       title={title}
       visible={visible}
       footer={null}
+      width={width}
     >
       <div {...css(styles.container)}>
         <Checkbox.Group style={{ width: '100%' }} onChange={props.setValue} value={props.value ? props.value : props.domainsSelected.map(x => x.name)}>

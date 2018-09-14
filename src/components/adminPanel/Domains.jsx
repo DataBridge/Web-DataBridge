@@ -121,7 +121,7 @@ const Domains = enhance(({ styles, data, ...props }) => {
               }
             />
           </td>
-          <td {...css(styles.colInter)}>
+          <td {...css(styles.colInterVerif)}>
             {verified(domain.id)}
           </td>
         </tr>
@@ -272,6 +272,7 @@ export default  withStyles(({ color, unit }) => ({
   },
   colInter: {
     height: '70px',
+    width: '25%',
   },
   rowFooter: {
     height: '70px',

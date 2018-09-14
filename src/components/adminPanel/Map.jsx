@@ -316,7 +316,7 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                               }}>
                               {`${device}`}
                             </text>
-                            <text x="220" y={130 - spacing * (i + 1) + 5}
+                            <text x={"220"} y={130 - spacing * (i + 1) + 5}
                               style={{
                                 fontFamily: "Roboto, sans-serif",
                                 fontSize: '16px',
@@ -339,7 +339,7 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                           <g transform="rotate(180 50 50)">
                             < mask id="myMask" >
                               <rect x="0" y="0" width="100" height="100"
-                                fill="black" />
+                                fill="black" strokeOpacity="0"/>
                               <circle cx="50" cy="50" width="100" r="50" fill="white" />
                             </mask>
                             <g
@@ -350,7 +350,7 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                                 fill={cc} mask="url(#myMask)" />
                               {props.device === device && offset > 20 ? (
                                 <g transform="rotate(180 50 50)">
-                                  <text x="25" y={100 - (offsetCum / 100) * 100 + dec}
+                                  <text x={val.toString().length === 1 ? "30" : "25"} y={100 - (offsetCum / 100) * 100 + dec}
                                     style={{
                                       fontFamily: "Roboto, sans-serif",
                                       fontSize: '16px',

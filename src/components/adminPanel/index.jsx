@@ -89,5 +89,6 @@ export default withStyles(({ color, unit }) => ({
     color: 'white',
     textAlign: 'center',
     backgroundImage: color.gradientLeft,
+    paddingBottom: '50px'
   },
 }))(AdminPanel)
