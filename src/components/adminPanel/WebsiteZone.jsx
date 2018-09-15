@@ -30,9 +30,9 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
   if (data != null && data.loading)
     return <Spin size="large" />
 
-  if (data != null && data.myWebsites.length === 0) {
-    history.push('/welcome');
-  }
+  // if (data != null && data.myWebsites.length === 0) {
+  //   history.push('/welcome');
+  // }
 
   const createWebsite = (name) => () => {
      props.createWebsite({
