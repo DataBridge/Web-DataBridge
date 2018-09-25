@@ -30,9 +30,9 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
   if (data != null && data.loading)
     return <Spin size="large" />
 
-  if (data != null && data.myWebsites.length === 0) {
-    history.push('/welcome');
-  }
+  //if (data != null && data.myWebsites.length === 0) {
+  //  history.push('/welcome');
+  //}
 
   const createWebsite = (name) => () => {
      props.createWebsite({
@@ -55,16 +55,12 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
     options = [
       {
         value: null,
-        label: '',
-      },
-      {
-        value: null,
-        label: '',
+        label: 'No Websites',
       },
     ]
   }
 
-  if (!webSelect)
+  if (!webSelect && data.myWebsites.length > 0)
     setValue(options[0].value)
 
   return (
@@ -81,6 +77,7 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
       </Col>
       <Col span={14}>
         <Dropdown
+          disabled={data.myWebsites.length > 0 ? false : true}
           options={options}
           value={options[0].label} placeholder="Select an option"
           onChange={({ value }) => setValue(value)}
