@@ -198,6 +198,7 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
     totalCat = 0;
     markers.push(res);
   });
+  // Compute constants for normalization
   const maxSize = max(sizes);
   const minSize = (max(sizes) === min(sizes)) ? 0 : min(sizes);
 
@@ -250,8 +251,11 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
           </Geographies>
           <Markers>
             {markers.map((marker, i) => {
+              // Compute the ratio between colors, linear gardient
               const ratio = (marker.value - minSize) / (maxSize - minSize);
+              // Get the color
               const color = colorBetween('#4fe3c3', '#4b6ee5', ratio, 'hex')
+              // Initialize the offset
               let offsetCum = 0;
               console.log('-----', marker)
 
@@ -302,6 +306,7 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                         fill="white" ry="15" ry="15" />
                       {marker.categories.map(({ device, val }, i) => {
                         const offset = Math.round(((val / marker.totalCat) * 100));
+                        // Offset cumulation for the position of devices information
                         offsetCum += offset;
                         const spacing = (1 / (marker.categories.length + 1)) * 150;
                         const cc = colorBetween('#4fe3c3', '#4b6ee5', offsetCum / 100, 'hex')
@@ -332,6 +337,7 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
                       <circle cx="50" cy="50" width="100" r="52" fill="white" />
                       {reverse(marker.categories.map(({ device, val }, i) => {
                         const offset = Math.round(((val / marker.totalCat) * 100));
+                        // Offset for color bands position
                         offsetCum += offset;
                         const cc = colorBetween('#4fe3c3', '#4b6ee5', offsetCum / 100, 'hex')
                         const dec = i === (marker.categories.length - 1) ? 30 : 20;
@@ -385,14 +391,6 @@ const VlyntMap = enhance(({ styles, zoom, domainsQuery, statsQuery, ...props }) 
           </Markers>
         </ZoomableGroup>
       </ComposableMap>
-      {
-      // <button onClick={props.upZoom}>
-      //   +
-      // </button>
-      // <button onClick={props.downZoom}>
-      //   -
-      // </button>
-      }
     </div>
   );
 });
