@@ -5,7 +5,9 @@ import { css, withStyles } from 'withStyles';
 import { compose, withState, withHandlers } from 'recompose';
 import { Spin, Row, Col } from 'antd';
 import Dropdown from 'react-dropdown'
+import Tertiary from 'components/buttons/Tertiary'
 import Primary from 'components/buttons/Primary';
+import AdaptorInstructions from '../docs/AdaptorInstructions';
 import ModalV from '../popups/ModalV';
 import MyWebsitesQuery from 'data/queries/MyWebsitesQuery';
 import CreateWebsiteMutation from 'data/mutations/CreateWebsiteMutation';
@@ -14,9 +16,12 @@ import 'withStyles/dropdownStyle.css';
 const enhance = compose(
   withRouter,
   withState('modalWeb', 'setModalWeb', false),
+  withState('modalAdaptor', 'setModalAdaptor', false),
   withHandlers({
     showModWeb: ({ setModalWeb }) => () => setModalWeb(_ => true),
     hideModWeb: ({ setModalWeb }) => () => setModalWeb(_ => false),
+    showModAdaptor: ({ setModalAdaptor }) => () => setModalAdaptor(_ => true),
+    hideModAdaptor: ({ setModalAdaptor }) => () => setModalAdaptor(_ => false)
   }),
   graphql(MyWebsitesQuery, {
     options: () => ({
@@ -30,9 +35,9 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
   if (data != null && data.loading)
     return <Spin size="large" />
 
-  //if (data != null && data.myWebsites.length === 0) {
-  //  history.push('/welcome');
-  //}
+  // if (data != null && data.myWebsites.length === 0) {
+  //   history.push('/welcome');
+  // }
 
   const createWebsite = (name) => () => {
      props.createWebsite({
@@ -41,7 +46,7 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
           name,
         }
       },
-      refetchQueries:['myWebsites'],
+      refetchQueries: ['myWebsites'],
     });
   }
 
@@ -72,10 +77,17 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
         onOk={createWebsite}
         onCancel={props.hideModWeb}
       />
+      <AdaptorInstructions
+        title="THE VLYNT ADAPTOR"
+        placeholder="adaaa"
+        visible={props.modalAdaptor}
+        onOk={() => {}}
+        onCancel={props.hideModAdaptor}
+      />
       <Col span={2} {...css(styles.text)}>
         Website:
       </Col>
-      <Col span={14}>
+      <Col span={11}>
         <Dropdown
           disabled={data.myWebsites.length > 0 ? false : true}
           options={options}
@@ -83,10 +95,13 @@ const WebsiteZone = enhance(({ styles, history, data, setValue, webSelect,
           onChange={({ value }) => setValue(value)}
         />
       </Col>
-      <Col span={7}>
+      <Col span={1} />
+      <Col span={5}>
         <Primary text="ADD NEW" onClick={props.showModWeb}/>
       </Col>
-      <Col span={1}>
+      <Col span={1} />
+      <Col span={5}>
+        <Tertiary text="ADAPTOR" onClick={props.showModAdaptor}/>
       </Col>
     </Row>
   )

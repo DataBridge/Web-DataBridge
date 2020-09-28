@@ -35,6 +35,11 @@ const LogInTab = enhance(({ styles, children, stateEmail, statePwd, validEmail,
   setEmailValue, setPwdValue, login, setLogin, data, history }) => {
   let logInButton;
   const validForm = (stateEmail === 'valid') && (statePwd === 'valid');
+
+  setEmailValue('Daphney.Harvey@gmail.com')
+  setPwdValue('test')
+  setLogin(true)
+
   if (validForm)
     logInButton = (
       <button
